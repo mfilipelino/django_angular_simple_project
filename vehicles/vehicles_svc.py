@@ -1,4 +1,4 @@
-from vehicles.models import VehicleManufacturer, VehicleModel
+from vehicles.models import VehicleManufacturer, VehicleModel, Vehicle
 
 
 def save_manufacturer(manufacturer_dict):
@@ -97,17 +97,62 @@ def list_vehicle_model(filters=None, as_dict=False):
         query = query.filter(manufacturer=filters['manufacturer'])
     if 'id' in filters:
         query = query.filter(id=filters['id'])
+    if 'name_contains' in filters:
+        query = query.filter(name__icontains=filters['name_contains'])
+
 
     vehicles_models = [vehicles_model.to_dict() if as_dict else vehicles_model for vehicles_model in query]
 
     result = {
-        'vehicles_models' : vehicles_models
+        'vehicles_models': vehicles_models
     }
 
     return result
 
 
+def save_vehicle(vehicle_dict):
 
+    try:
+        if 'id' in vehicle_dict:
+            vehicle = Vehicle.objects.get(id=vehicle_dict['id'])
+            vehicle.vehicle_model = vehicle_dict.get('vehicle_model', vehicle.vehicle_model.id)
+            vehicle.color = vehicle_dict.get('color', vehicle.color)
+            vehicle.mileage = vehicle_dict.get('mileage', vehicle.mileage)
+            vehicle.year = vehicle_dict.get('year', vehicle.year)
+        else:
+            vehicle = Vehicle(**vehicle_dict)
+
+        vehicle.save()
+        return vehicle
+
+    except Vehicle.DoesNotExist:
+        return None
+
+
+def list_vehicles(filters=None, as_dict=False):
+
+    filters = filters or {}
+
+    query = Vehicle.objects.all()
+    if 'year' in filters:
+        query = query.filter(year=filters['year'])
+    if 'color' in filters:
+        query = query.filter(color=filters['color'])
+    if 'mileage' in filters:
+        query = query.filter(mileage=filters['mileage'])
+    if 'id' in filters:
+        query = query.filter(id=filters['id'])
+    if 'vehicle_model' in filters:
+        query = query.filter(vehicle_model=filters['vehicle_model'])
+    if 'color_contains' in filters:
+        query = query.filter(color__icontains=filters['color_contains'])
+
+    vehicles = [vehicle.to_dict() if as_dict else vehicle for vehicle in query]
+
+    result = {
+        'vehicles': vehicles
+    }
+    return result
 
 
 

@@ -26,10 +26,10 @@ class ManufacturerApiTest(TestCase):
         self.assertEqual(response.status_code , 200)
         self.assertEqual(len(response.data['manufacturers']), 10)
 
-        # filters = {'name' : 'manufac0v'}
+        #name' : 'manufac0v'}
         # data = {
         #      'filters' : json.dumps(filters)
         # }
-        # response = c.get(reverse('api_list_manufactures'))
-        # self.assertEqual(response.status_code , 200)
-        # self.assertEqual(len(response.data['manufacturers']), 1)
+        #response = c.get(reverse('api_list_manufactures', get(name='manufac0v',)))
+        #self.assertEqual(response.status_code , 200)
+        #self.assertEqual(len(response.data['manufacturers']), 1)

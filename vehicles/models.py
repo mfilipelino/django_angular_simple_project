@@ -28,8 +28,7 @@ class VehicleModel(models.Model):
     )
 	vehicle_type = models.CharField(max_length=3, blank=False, null=False, choices=TYPE_CHOICES)
 
-	def __str__(self):
-		return '%s %s %s' % (self.name, self.manufacturer, str(self.motor))
+
 
 class Vehicle(models.Model):
 	
@@ -38,5 +37,4 @@ class Vehicle(models.Model):
 	color = models.CharField(max_length=64, blank=False, null=False)
 	mileage = models.PositiveIntegerField(blank=False, null=False, default=0)
 
-	def __str__(self):
-		return '%s %s' % (str(self.year), self.color)
+

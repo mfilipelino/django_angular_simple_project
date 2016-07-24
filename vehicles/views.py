@@ -8,12 +8,12 @@ from vehicles import vehicles_svc
 import json
 
 
-def VehicleManufacturerView(APIView):
+class VehicleManufacturerView(APIView):
 
 
-    def get(self, request, manufacturer_id, *args, **kargs):
+    def get(self, request, manufacture_id, *args, **kargs):
 
-        result = vehicles_svc.get_manufacturer(manufacturer_id)
+        result = vehicles_svc.get_manufacturer(manufacture_id, as_dict=True)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
     def put():

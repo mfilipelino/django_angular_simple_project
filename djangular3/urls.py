@@ -5,9 +5,6 @@ from rest_framework import routers
 from vehicles import views
 import vehicles
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
     # Examples:

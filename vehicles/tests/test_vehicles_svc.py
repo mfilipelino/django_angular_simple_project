@@ -78,3 +78,7 @@ class ManufacturerTest(TestCase):
         result = vehicles_svc.list_manufacturer(filter)
         self.assertEqual(len(result['manufacturers']), 10)
 
+    def test_list_manufacturer_filter_none(self):
+
+        result = vehicles_svc.list_manufacturer()
+        self.assertEqual(len(result['manufacturers']), 10)

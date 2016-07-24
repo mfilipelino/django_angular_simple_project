@@ -157,7 +157,7 @@ function pycoverage {
 }
 
 function generate_coverage_html {
-    coverage html -d coverage --omit='vehicles/tests/*','vehicles/migrations/*','~/.virtualenvs/webapp3/*'
+    coverage html -d coverage --omit='vehicles/tests/*','vehicles/migrations/*','~/.virtualenvs/webapp3/*','manage.py'
 }
 
 function produce_alias {

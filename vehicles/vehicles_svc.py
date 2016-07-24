@@ -20,19 +20,19 @@ def save_manufacturer(manufacturer_dict):
         return None
 
 
-def get_manufacturer(manufacturer_id):
+def get_manufacturer(manufacture_id, as_dict=False):
 
     filters = {
-        'id' : manufacturer_id
+        'id' : manufacture_id
     }
-    result = list_manufacturer(filters)
+    result = list_manufacturer(filters, as_dict=as_dict)
 
     if result['manufacturers'] :
         return result['manufacturers'][0]
     else:
         return None
 
-def list_manufacturer(filters=None):
+def list_manufacturer(filters=None, as_dict=False):
 
     if filters is None:
         filters = {}
@@ -47,7 +47,8 @@ def list_manufacturer(filters=None):
     if 'name_contains' in filters:
         query = query.filter(name__icontains=filters['name_contains'])
 
-    manufacturers = list(query)
+    manufacturers = [vehicle.to_dict() if as_dict else vehicle for vehicle in query]
+
     result = {
         'manufacturers' : manufacturers
     }

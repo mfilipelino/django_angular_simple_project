@@ -35,6 +35,11 @@ class ManufacturerTest(TestCase):
         self.assertEqual(manufacturer.name, 'Honda')
 
 
+    def test_get_manufacturer_not_exist(self):
+
+        manufacturer = vehicles_svc.get_manufacturer(-1)
+        self.assertIsNone(manufacturer)
+
     def test_get_manufacturer(self):
 
         manufacturer_dict = {'name': 'Toyota'}
@@ -43,5 +48,4 @@ class ManufacturerTest(TestCase):
         manufacturer = vehicles_svc.get_manufacturer(id)
         self.assertEqual(manufacturer.id, id)
 
-    def test_get_manufacturer_isnone(self):
-        
+

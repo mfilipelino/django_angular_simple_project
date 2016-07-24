@@ -22,7 +22,11 @@ def save_manufacturer(manufacturer_dict):
 
 def get_manufacturer(manufacturer_id):
 
-    return VehicleManufacturer.objects.get(id=manufacturer_id)
+    try:
+        return VehicleManufacturer.objects.get(id=manufacturer_id)
+
+    except VehicleManufacturer.DoesNotExist:
+        return None
 
 
 

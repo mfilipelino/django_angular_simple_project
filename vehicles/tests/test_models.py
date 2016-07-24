@@ -1,15 +1,20 @@
 from django.test import TestCase
+from utils.fakedata import create_manufacturer
 from vehicles import vehicles_svc
+from utils import fakedata
 
 class ManufacturerTest(TestCase):
 
-    def setUp(self):
-        pass
+    @classmethod
+    def setUpTestData(cls):
+        super(ManufacturerTest, cls).setUpTestData()
+        for i in range(10):
+            fakedata.create_manufacturer()
 
-    def test_save_manufacturer_isnone(self):
+    def test_save_manufacturer_no_exist_object_return_none(self):
 
         manufacturer_dict = {}
-        manufacturer_dict['id'] = 1
+        manufacturer_dict['id'] = -1
         manufacturer_dict['name'] = 'Toyota'
 
         manufacturer = vehicles_svc.save_manufacturer(manufacturer_dict)

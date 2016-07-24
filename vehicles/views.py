@@ -44,3 +44,17 @@ class VehicleModelView(APIView):
             result = vehicles_svc.list_vehicle_model(filters=filters)
 
         return  Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
+
+
+class VehicleView(APIView):
+
+    def get(self, request, vehicles_id=None, *args, **kargs):
+
+        if vehicles_id:
+            result = vehicles_svc.list_vehicles(vehicles_id, as_dict=True)
+        else:
+            filters = request.query_params.get('filters', {})
+            filters = json.loads(filters)
+            result = vehicles_svc.list_vehicles(filters=filters)
+
+        return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')

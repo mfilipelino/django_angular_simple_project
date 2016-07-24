@@ -54,7 +54,15 @@ class VehicleApiTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        super(VehicleModelApiTest, cls).setUpTestData()
+        super(VehicleApiTest, cls).setUpTestData()
         for i in range(10):
             fakedata.create_vehicle()
+
+
+    def test_get_id(self):
+
+        c = Client()
+        response = c.get(reverse('api_vehicles', kwargs={'vehicles_id': 1}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], 1)
 

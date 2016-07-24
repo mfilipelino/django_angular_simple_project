@@ -16,18 +16,27 @@ class VehicleManufacturer(models.Model):
 
 class VehicleModel(models.Model):
 
-	name = models.CharField(max_length=50, blank=False, null=False)
-	manufacturer = models.ForeignKey('VehicleManufacturer')			
-	motor = models.IntegerField(blank=False, null=False, default=1000)
-
-	TYPE_CAR = 'CAR'
-	TYPE_MOT = 'MOT'
-	TYPE_CHOICES = (
-    	(TYPE_CAR, 'car'),
+    TYPE_CAR = 'CAR'
+    TYPE_MOT = 'MOT'
+    TYPE_CHOICES = (
+        (TYPE_CAR, 'car'),
         (TYPE_MOT, 'mot'),
     )
-	vehicle_type = models.CharField(max_length=3, blank=False, null=False, choices=TYPE_CHOICES)
 
+    vehicle_type = models.CharField(max_length=3, blank=False, null=False, choices=TYPE_CHOICES)
+    name = models.CharField(max_length=50, blank=False, null=False)
+    manufacturer = models.ForeignKey('VehicleManufacturer')
+    motor = models.IntegerField(blank=False, null=False, default=1000)
+
+    def to_dict(self):
+        dic = {
+            'id' : self.id,
+            'name' : self.name,
+            'manufacturer' : self.manufacturer,
+            'motor' : self.motor,
+            'vehicle_type' : self.vehicle_type
+        }
+        return dic
 
 
 class Vehicle(models.Model):

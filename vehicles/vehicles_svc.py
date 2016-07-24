@@ -1,7 +1,4 @@
-from logging import exception
-from vehicles.models import VehicleManufacturer
-from vehicles.models import *
-
+from vehicles.models import VehicleManufacturer, VehicleModel
 
 
 def save_manufacturer(manufacturer_dict):
@@ -47,13 +44,33 @@ def list_manufacturer(filters=None, as_dict=False):
     if 'name_contains' in filters:
         query = query.filter(name__icontains=filters['name_contains'])
 
-    manufacturers = [vehicle.to_dict() if as_dict else vehicle for vehicle in query]
+    manufacturers = [manufacturer.to_dict() if as_dict else manufacturer for manufacturer in query]
 
     result = {
         'manufacturers' : manufacturers
     }
 
     return  result
+
+
+def save_vehiclemodel(vehicle_model_dict):
+    
+    try:
+        if 'id' in vehicle_model_dict:
+            vehicle_model = VehicleModel.objects.get(id=vehicle_model_dict['id'])
+            vehicle_model.name = vehicle_model_dict.get('name', vehicle_model.name)
+            vehicle_model.manufacturer_id= vehicle_model_dict.get('manufacturer_id', vehicle_model.manufacturer_id)
+            vehicle_model.motor = vehicle_model_dict.get('motor', vehicle_model.motor)
+            vehicle_model.vehicle_type = vehicle_model_dict.get('type_vehicle', vehicle_model.vehicle_type)
+        else:
+            vehicle_model = VehicleModel(**vehicle_model_dict)
+
+        vehicle_model.save()
+        return  vehicle_model
+
+    except VehicleModel.DoesNotExist:
+        return None
+
 
 
 

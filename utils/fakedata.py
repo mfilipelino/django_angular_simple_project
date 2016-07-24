@@ -1,8 +1,8 @@
-from vehicles.models import VehicleManufacturer
+from vehicles.models import VehicleManufacturer, VehicleModel
 
 
 _manufacturer = 0
-
+_vehicle_model = 0
 
 def create_manufacturer():
 

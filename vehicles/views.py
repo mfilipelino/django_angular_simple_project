@@ -11,18 +11,25 @@ import json
 class VehicleManufacturerView(APIView):
 
 
-    def get(self, request, manufacture_id, *args, **kargs):
+    def get(self, request, manufacture_id=None, *args, **kargs):
 
-        result = vehicles_svc.get_manufacturer(manufacture_id, as_dict=True)
+        if manufacture_id:
+            result = vehicles_svc.get_manufacturer(manufacture_id, as_dict=True)
+        else:
+            filters = request.query_params.get('filters', '{}')
+            filters = json.loads(filters)
+            result = vehicles_svc.list_manufacturer(filters=filters)
+
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
-    def put():
-        pass
-
-    def post():
-        pass
-
-    def delete():
-        pass
 
 
+class VehicleManufacturerListView(APIView):
+
+    def get(self, request, *args, **kargs):
+
+        filters = request.query_params.get('filters', '{}')
+        filters = json.loads(filters)
+        result  = vehicles_svc.list_manufacturer(filters=filters, as_dict=True)
+
+        return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')

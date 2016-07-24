@@ -2,6 +2,8 @@ from django.test import TestCase
 from utils.fakedata import create_manufacturer
 from vehicles import vehicles_svc
 from utils import fakedata
+from vehicles.models import VehicleModel
+
 
 class ManufacturerTest(TestCase):
 
@@ -82,3 +84,37 @@ class ManufacturerTest(TestCase):
 
         result = vehicles_svc.list_manufacturer()
         self.assertEqual(len(result['manufacturers']), 10)
+
+class VehicleModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+         super(VehicleModelTest, cls).setUpTestData()
+         for i in range(10):
+             fakedata.create_manufacturer()
+
+    def test_save_vehicle_model_no_exist_object_return_none(self):
+
+        vehicle_model_dict = {}
+        vehicle_model_dict['id'] = -1
+        vehicle_model = vehicles_svc.save_vehiclemodel(vehicle_model_dict)
+        self.assertIsNone(vehicle_model)
+
+    def test_vehicle_model_name_(self):
+
+        v = VehicleModel()
+        vehicle_model_dict = {'name': 'Corola', 'manufacturer' : create_manufacturer()}
+        vehicle_model = vehicles_svc.save_vehiclemodel(vehicle_model_dict)
+        self.assertEqual(vehicle_model.name, 'Corola')
+
+        vehicle_model_dict = vehicle_model.to_dict()
+        del vehicle_model_dict['name']
+        id = vehicle_model_dict['id']
+        manufacturer = vehicles_svc.save_vehiclemodel(vehicle_model_dict)
+        self.assertEqual(manufacturer.id, id)
+        self.assertEqual(manufacturer.name, 'Corola')
+
+        vehicle_model_dict = vehicle_model.to_dict()
+        vehicle_model_dict['name'] = 'ranger'
+        vehicle_model = vehicles_svc.save_vehiclemodel(vehicle_model_dict)
+        self.assertEqual(vehicle_model.name, 'ranger')

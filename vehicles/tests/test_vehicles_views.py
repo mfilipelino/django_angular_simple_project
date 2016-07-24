@@ -28,8 +28,8 @@ class ManufacturerApiTest(TestCase):
 
         # filters = {'name' : 'manufac0v'}
         # data = {
-        #     'filters' : json.dumps(filters)
+        #      'filters' : json.dumps(filters)
         # }
-        # response = c.get(reverse('api_list_manufactures', data=data))
+        # response = c.get(reverse('api_list_manufactures'))
         # self.assertEqual(response.status_code , 200)
         # self.assertEqual(len(response.data['manufacturers']), 1)

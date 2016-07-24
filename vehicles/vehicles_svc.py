@@ -72,5 +72,45 @@ def save_vehiclemodel(vehicle_model_dict):
         return None
 
 
+def get_vehicle_model(vehicle_model_id, as_dict=False):
+
+    filter ={
+        'id' : vehicle_model_id
+    }
+
+    result = list_vehicle_model(filter, as_dict=as_dict)
+    if result['vehicles_models']:
+        return result['vehicles_models'][0]
+    else:
+        return None
+
+def list_vehicle_model(filters=None, as_dict=False):
+
+    filters = filters or {}
+
+    query = VehicleModel.objects.all()
+    if 'name' in filters:
+        query = query.filter(name=filters['name'])
+    if 'motor' in filters:
+        query = query.filter(motor=filters['motor'])
+    if 'manufacturer' in filters:
+        query = query.filter(manufacturer=filters['manufacturer'])
+    if 'id' in filters:
+        query = query.filter(id=filters['id'])
+
+    vehicles_models = [vehicles_model.to_dict() if as_dict else vehicles_model for vehicles_model in query]
+
+    result = {
+        'vehicles_models' : vehicles_models
+    }
+
+    return result
+
+
+
+
+
+
+
 
 

@@ -91,7 +91,7 @@ class VehicleModelTest(TestCase):
     def setUpTestData(cls):
          super(VehicleModelTest, cls).setUpTestData()
          for i in range(10):
-             fakedata.create_manufacturer()
+             fakedata.create_vehicle_model()
 
     def test_save_vehicle_model_no_exist_object_return_none(self):
 
@@ -118,3 +118,22 @@ class VehicleModelTest(TestCase):
         vehicle_model_dict['name'] = 'ranger'
         vehicle_model = vehicles_svc.save_vehiclemodel(vehicle_model_dict)
         self.assertEqual(vehicle_model.name, 'ranger')
+
+    def test_get_vehicle_model_not_exist(self):
+
+        vehicle_model = vehicles_svc.get_vehicle_model(-1)
+        self.assertIsNone(vehicle_model)
+
+    def test_get_vehicle_model(self):
+
+        vehicle_model_dict = {'name': 'S10', 'manufacturer' : create_manufacturer()}
+        vehicle_model = vehicles_svc.save_vehiclemodel(vehicle_model_dict)
+        id = vehicle_model.id
+        vehicle_model = vehicles_svc.get_vehicle_model(id)
+        self.assertEqual(vehicle_model.id, id)
+
+    def test_list_vehicle_model(self):
+
+        vehicle_model_dict = {}
+        result = vehicles_svc.list_vehicle_model(vehicle_model_dict)
+        self.assertEqual(len(result['vehicles_models']), 10)

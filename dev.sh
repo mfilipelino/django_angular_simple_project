@@ -12,7 +12,7 @@ YELLOW='\e[0;33m'
 # 3) Seja feliz
 
 
-workon webapp  # Muda isso pro nome do virtalenv do seu projeto
+source ~/.virtualenvs/webapp3/bin/activate  # Muda isso pro nome do virtalenv do seu projeto
 
 export PROJ_BASE="$(dirname ${BASH_SOURCE[0]})"
 CD=$(pwd)
@@ -175,12 +175,13 @@ function produce_alias {
     echo "------------------------------------------------------------------------"
 }
 
+
 function echo_red {
-    echo -e "\e[31m$1\e[0m";
+    echo -e "${RED}$1${RESTORE}";
 }
 
 function echo_green {
-    echo -e "\e[32m$1\e[0m";
+    echo -e "${GREEN}$1${RESTORE}";
 }
 
 function echo_yellow {
@@ -212,6 +213,8 @@ function dorun {
         return $exitcode
     fi
 }
+
+
 
 echo_green "Bem vindo, blablabla, customize essa mensagem com o q vc quiser:"
 echo_green "Dica: autocomplete funciona pros comandos abaixo ;)"

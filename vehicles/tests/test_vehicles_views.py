@@ -33,3 +33,14 @@ class ManufacturerApiTest(TestCase):
         #response = c.get(reverse('api_list_manufactures', get(name='manufac0v',)))
         #self.assertEqual(response.status_code , 200)
         #self.assertEqual(len(response.data['manufacturers']), 1)
+
+class VehicleModelApiTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        super(VehicleModelApiTest, cls).setUpTestData()
+        for i in range(10):
+            fakedata.create_vehicle_model()
+
+    def test_get_id(self):
+        pass

@@ -1,6 +1,28 @@
 from django.shortcuts import render
 
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from vehicles.serializers import UserSerializer, GroupSerializer
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from vehicles import vehicles_svc
+import json
+
+
+def VehicleManufacturerView(APIView):
+
+
+    def get(self, request, manufacturer_id, *args, **kargs):
+
+        result = vehicles_svc.get_manufacturer(manufacturer_id)
+        return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
+
+    def put():
+        pass
+
+    def post():
+        pass
+
+    def delete():
+        pass
+
 

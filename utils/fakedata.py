@@ -7,11 +7,11 @@ _vehicle = 0
 
 def create_manufacturer():
 
+    global _manufacturer
     name = 'manufac' + str(_manufacturer) + 'v'
     manufacturer_dict = {
         'name' : name
     }
-    global _manufacturer
     _manufacturer += 1
     manufacturer = VehicleManufacturer(**manufacturer_dict)
     manufacturer.save()
@@ -20,6 +20,7 @@ def create_manufacturer():
 
 def create_vehicle_model():
 
+    global _vehicle_model
     name = 'model' + str(_vehicle_model)
     dic = {
         'name' : name,
@@ -27,7 +28,7 @@ def create_vehicle_model():
         'motor' : 1000,
         'vehicle_type' : VehicleModel.TYPE_CAR
     }
-    global _vehicle_model
+
     _vehicle_model += 1
     vehicleModel = VehicleModel(**dic)
     vehicleModel.save()
@@ -35,11 +36,12 @@ def create_vehicle_model():
 
 def create_vehicle(**kwargs):
 
+    global _vehicle
     name = 'vehicle' + str(_vehicle)
     years = [1999, 2010, 2015]
     colors = ['azul', 'prata', 'preto']
 
-    global _vehicle
+
     _vehicle += 1
 
     dic = {

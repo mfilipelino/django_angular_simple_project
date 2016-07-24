@@ -29,4 +29,8 @@ def get_manufacturer(manufacturer_id):
         return None
 
 
+def list_manufacturer(manufacturer_dict):
+    pass
+
+
 

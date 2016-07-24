@@ -57,12 +57,14 @@ function devhelp {
     echo -e "${GREEN}produce_alias${RESTORE}     Imprime instruções pra criar um atalho persistente"
     echo -e "                  pra este ambiente de desenvolvimento"
     echo -e ""
+    echo -e "${GREEN}pycoverage${RESTORE}         Gera relatorio de cobertura de testes"
+    echo -e ""    
 }
 
 function pytests {
     CD=$(pwd)
     cd $PROJ_BASE
-    dorun "./manage.py test cameras vehicles" "Testes python"
+    dorun "./manage.py test" "Testes python"
     exitcode=$?
     cd $CD
     return $exitcode
@@ -141,14 +143,35 @@ function jstests {
     return $exitcode
 }
 
+function pycoverage {
+    CD=$(pwd)
+    cd $PROJ_BASE
+
+    dorun "coverage erase"
+    dorun "coverage run --branch manage.py test"
+    dorun "generate_coverage_html" "Gerar html com relatorio de cobertura"
+
+    exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function generate_coverage_html {
+    coverage html -d coverage --omit='vehicles/tests/*','vehicles/migrations/*','~/.virtualenvs/webapp3/*'
+}
+
 function produce_alias {
     echo "------------------------------------------------------------------------"
-    echo "Esse comando verdinho aih cria um alias que vc pode usar"
-    echo "pra cair no ambdev deste projeto a partir de qualquer lugar do seu bash."
-    echo "Sugestão: adiciona no seu ~/.bashrc"
-    echo "Sugestão2: Muda o nome desse alias aih pra algo mais adequado"
+    echo "Este comando verde cria um alias que voce pode usar para cair"
+    echo "no ambdev deste projeto a partir de qualquer lugar do seu bash."
+    echo "Sugestão: adiciona no seu ~/.bashrc (Linux) ou no ~/.bash_profile (OS X)"
     echo "------------------------------------------------------------------------"
-    echo_green "alias dj3='cd $(readlink -e $PROJ_BASE) && . dev.sh'"
+    echo_green "f_webapp() {"
+    echo_green "   cd ~/workspace/webapp"
+    echo_green "   . dev.sh"
+    echo_green "   workon webapp3"
+    echo_green "}"
+    echo_green "alias swebapp=f_webapp"
     echo "------------------------------------------------------------------------"
 }
 

@@ -29,8 +29,27 @@ def get_manufacturer(manufacturer_id):
         return None
 
 
-def list_manufacturer(manufacturer_dict):
-    pass
+def list_manufacturer(filters=None):
+
+    if filters is None:
+        filters = {}
+
+    query = VehicleManufacturer.objects.all()
+
+
+    if 'name' in filters:
+        query = query.filter(name=filters['name'])
+    if 'id' in filters:
+        query = query.filter(id=filters['id'])
+    if 'name_contains' in filters:
+        query = query.filter(name__icontains=filters['name_contains'])
+
+    manufacturers = list(query)
+    result = {
+        'manufacturers' : manufacturers
+    }
+
+    return  result
 
 
 

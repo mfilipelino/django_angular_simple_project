@@ -53,4 +53,28 @@ class ManufacturerTest(TestCase):
         manufacturer = vehicles_svc.get_manufacturer(id)
         self.assertEqual(manufacturer.id, id)
 
+    def test_list_manufacturer(self):
+
+        manufacturer_dict = {}
+        result = vehicles_svc.list_manufacturer(manufacturer_dict)
+        self.assertEqual(len(result['manufacturers']), 10)
+
+    def test_list_manufacturer_filter_name(self):
+
+        filter = {
+            'name' : 'manufac0v'
+        }
+
+        result = vehicles_svc.list_manufacturer(filter)
+        self.assertEqual(len(result['manufacturers']), 1)
+
+
+    def test_list_manufacturer_filter_name_contains(self):
+
+        filter = {
+            'name_contains' : 'manufac'
+        }
+
+        result = vehicles_svc.list_manufacturer(filter)
+        self.assertEqual(len(result['manufacturers']), 10)
 

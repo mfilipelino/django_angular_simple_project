@@ -17,10 +17,10 @@ class VehicleManufacturer(models.Model):
 class VehicleModel(models.Model):
 
     TYPE_CAR = 'CAR'
-    TYPE_MOT = 'MOT'
+    TYPE_MOT = 'BIKE'
     TYPE_CHOICES = (
         (TYPE_CAR, 'car'),
-        (TYPE_MOT, 'mot'),
+        (TYPE_MOT, 'bike'),
     )
 
     vehicle_type = models.CharField(max_length=3, blank=False, null=False, choices=TYPE_CHOICES)
@@ -32,7 +32,7 @@ class VehicleModel(models.Model):
         dic = {
             'id' : self.id,
             'name' : self.name,
-            'manufacturer' : self.manufacturer,
+            'manufacturer' : self.manufacturer_id,
             'motor' : self.motor,
             'vehicle_type' : self.vehicle_type
         }
@@ -49,7 +49,7 @@ class Vehicle(models.Model):
     def to_dict(self):
         dic = {
             'id' : self.id,
-            'vehicle_model' : self.vehicle_model,
+            'vehicle_model' : self.vehicle_model_id,
             'year' : self.year,
             'mileage' : self.mileage,
             'color' : self.color

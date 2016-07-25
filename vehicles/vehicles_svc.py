@@ -93,8 +93,8 @@ def list_vehicle_model(filters=None, as_dict=False):
         query = query.filter(name=filters['name'])
     if 'motor' in filters:
         query = query.filter(motor=filters['motor'])
-    if 'manufacturer' in filters:
-        query = query.filter(manufacturer=filters['manufacturer'])
+    if 'manufacturer_id' in filters:
+        query = query.filter(manufacturer_id=filters['manufacturer_id'])
     if 'id' in filters:
         query = query.filter(id=filters['id'])
     if 'name_contains' in filters:
@@ -115,7 +115,7 @@ def save_vehicle(vehicle_dict):
     try:
         if 'id' in vehicle_dict:
             vehicle = Vehicle.objects.get(id=vehicle_dict['id'])
-            vehicle.vehicle_model = vehicle_dict.get('vehicle_model', vehicle.vehicle_model.id)
+            vehicle.vehicle_model_id = vehicle_dict.get('vehicle_model_id', vehicle.vehicle_model_id)
             vehicle.color = vehicle_dict.get('color', vehicle.color)
             vehicle.mileage = vehicle_dict.get('mileage', vehicle.mileage)
             vehicle.year = vehicle_dict.get('year', vehicle.year)
@@ -128,6 +128,19 @@ def save_vehicle(vehicle_dict):
     except Vehicle.DoesNotExist:
         return None
 
+
+
+def get_vehicle(vehicle_id, as_dict=False):
+
+    filter ={
+        'id' : vehicle_id
+    }
+
+    result = list_vehicles(filter, as_dict=as_dict)
+    if result['vehicles']:
+        return result['vehicles'][0]
+    else:
+        return None
 
 def list_vehicles(filters=None, as_dict=False):
 
@@ -142,8 +155,8 @@ def list_vehicles(filters=None, as_dict=False):
         query = query.filter(mileage=filters['mileage'])
     if 'id' in filters:
         query = query.filter(id=filters['id'])
-    if 'vehicle_model' in filters:
-        query = query.filter(vehicle_model=filters['vehicle_model'])
+    if 'vehicle_model_id' in filters:
+        query = query.filter(vehicle_model_id=filters['vehicle_model_id'])
     if 'color_contains' in filters:
         query = query.filter(color__icontains=filters['color_contains'])
 

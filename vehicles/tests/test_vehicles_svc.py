@@ -166,8 +166,9 @@ class VehicleTest(TestCase):
     @classmethod
     def setUpTestData(cls):
          super(VehicleTest, cls).setUpTestData()
+         cls.vehicle_mock_lst = []
          for i in range(10):
-             fakedata.create_vehicle(year=2000, color='vermelho')
+             cls.vehicle_mock_lst.append(fakedata.create_vehicle(year=2000, color='vermelho'))
 
     def test_save_vehicle_no_exist_object_return_none(self):
 
@@ -178,16 +179,16 @@ class VehicleTest(TestCase):
 
     def test_vehicle_year(self):
 
-        vehicle_dict = {'year': 1988, 'vehicle_model' : fakedata.create_vehicle_model()}
+        vehicle_dict = {'year': self.vehicle_mock_lst[0].year, 'vehicle_model_id' : self.vehicle_mock_lst[0].vehicle_model_id}
         vehicle = vehicles_svc.save_vehicle(vehicle_dict)
-        self.assertEqual(vehicle.year, 1988)
+        self.assertEqual(vehicle.year, self.vehicle_mock_lst[0].year)
 
         vehicle_model_dict = vehicle.to_dict()
         del vehicle_model_dict['year']
         id = vehicle_model_dict['id']
         manufacturer = vehicles_svc.save_vehicle(vehicle_dict)
         self.assertEqual(vehicle.id, id)
-        self.assertEqual(vehicle.year, 1988)
+        self.assertEqual(vehicle.year, self.vehicle_mock_lst[0].year)
 
         vehicle_dict = vehicle.to_dict()
         vehicle_dict['year'] = 2000

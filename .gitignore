@@ -7,3 +7,6 @@ coverage/
 *.log
 db.*
 .coverage
+bower_componentes/
+node_modules/
+

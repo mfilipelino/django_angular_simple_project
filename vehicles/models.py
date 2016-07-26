@@ -5,11 +5,10 @@ class VehicleManufacturer(models.Model):
 
     name = models.CharField(max_length=50, blank=False, null=False, unique=True)
 
-
     def to_dict(self):
         vehicle_manufacturer_dict = {
-            'id' : self.id,
-            'name' : self.name
+            'id': self.id,
+            'name': self.name
         }
         return vehicle_manufacturer_dict
 
@@ -30,11 +29,11 @@ class VehicleModel(models.Model):
 
     def to_dict(self):
         dic = {
-            'id' : self.id,
-            'name' : self.name,
-            'manufacturer' : self.manufacturer_id,
-            'motor' : self.motor,
-            'vehicle_type' : self.vehicle_type
+            'id': self.id,
+            'name': self.name,
+            'manufacturer': self.manufacturer_id,
+            'motor': self.motor,
+            'vehicle_type': self.vehicle_type
         }
         return dic
 
@@ -48,10 +47,10 @@ class Vehicle(models.Model):
 
     def to_dict(self):
         dic = {
-            'id' : self.id,
-            'vehicle_model' : self.vehicle_model_id,
-            'year' : self.year,
-            'mileage' : self.mileage,
-            'color' : self.color
+            'id': self.id,
+            'vehicle_model': self.vehicle_model_id,
+            'year': self.year,
+            'mileage': self.mileage,
+            'color': self.color
         }
         return dic

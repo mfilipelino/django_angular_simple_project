@@ -9,19 +9,20 @@
         <meta name="author" content="">
         <title>Djangular3 Single Page Application</title>
 
-        <link rel="stylesheet" href="/static/css/lib.css">
-        <link rel="stylesheet" href="/static/css/app.css">
-        <link rel="stylesheet" href="/static/css/index.css">
-        <script src="/static/js/lib.js"></script>
+        <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+
+        <script src="/static/jquery/dist/jquery.min.js"></script>
+        <script src="/static/angular/angular.min.js"></script>
+        <script src="/static//angular-ui-router/release/angular-ui-router.min.js"></script>
+
         <!--APPJS-->
-        <script src="/static/js/app.js"></script>
+        <script src="/static/app.js"></script>
         <!--APPJS END-->
     </head>
 
-    <body ng-app="app_main" ng-controller="AppMainCtrl">
+    <body ng-app="vdtest">
         {% csrf_token %}
         <!-- Fixed navbar -->
-        <apptoolbar></apptoolbar>
         <div ui-view></div>
     </body>
 </html>

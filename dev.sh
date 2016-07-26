@@ -13,6 +13,7 @@ YELLOW='\e[0;33m'
 
 
 source ~/.virtualenvs/webapp3/bin/activate  # Muda isso pro nome do virtalenv do seu projeto
+cp -f ci/pre-commit .git/hooks/
 
 export PROJ_BASE="$(dirname ${BASH_SOURCE[0]})"
 CD=$(pwd)

@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'djangular3.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-   'default': {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -89,7 +89,7 @@ REST_FRAMEWORK = {
 }
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
+# https://docs.djangoproject.com/en/1.8/topics/i18n/a
 
 LANGUAGE_CODE = 'en-us'
 
@@ -107,6 +107,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "bower_components"),
+    os.path.join(BASE_DIR, "js/source"),
+)
+
+# where static files are storage
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+)
+
 LOGGING = {
     'version': 1,
     'formatters': {
@@ -122,19 +133,19 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
-            },
+        },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': './file.log',
             'formatter': 'simple'
-            },
         },
+    },
     'loggers': {
         'django': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
-            },
-        }
+        },
     }
+}

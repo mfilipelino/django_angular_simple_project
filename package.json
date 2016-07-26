@@ -1,0 +1,23 @@
+{
+  "name": "vdbackend",
+  "version": "1.0.0",
+  "description": "front",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mfilipelino/vdbackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mfilipelino/vdbackend/issues"
+  },
+  "homepage": "https://github.com/mfilipelino/vdbackend#readme",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "jshint": "^2.9.2"
+  }
+}

@@ -26,8 +26,9 @@ SECRET_KEY = 'xq0d96vcvu8qeg@=asdguq2=95y!-ce7=g^pc-*)18no)+8c#-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
-
+ALLOWED_HOSTS = ['*', 'localhost']
+TEMPLATE_DEBUG = True
+APPEND_SLASH = True
 
 # Application definition
 
@@ -40,17 +41,19 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'vehicles',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'djangular3.urls'
@@ -150,3 +153,7 @@ LOGGING = {
         },
     }
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8001'
+)

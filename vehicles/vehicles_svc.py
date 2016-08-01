@@ -28,6 +28,19 @@ def get_manufacturer(manufacture_id, as_dict=False):
         return None
 
 
+def delete_manufacturer(manufacture_id):
+    filters = {
+        'id': manufacture_id
+    }
+    result = list_manufacturer(filters)
+
+    if result['manufacturers']:
+        result['manufacturers'][0].delete()
+        return True
+    else:
+        return False
+
+
 def list_manufacturer(filters=None, as_dict=False):
     if filters is None:
         filters = {}

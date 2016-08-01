@@ -3,9 +3,10 @@
 
 	angular.module('manufactures').controller("ManufacturesListController", ManufacturesListController);
 
-	function ManufacturesListController(){
-		var $ctrl = this;
-		$ctrl.hello = "hello world";
+	function ManufacturesListController(ManufacturesListService){
+		var ctrl = this;
+		ctrl.service = ManufacturesListService;
+		ctrl.service.init();
 	}
 
 })();

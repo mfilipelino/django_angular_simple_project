@@ -28,7 +28,7 @@ class ManufacturerApiTest(TestCase):
         c = Client()
         response = c.get(reverse('api_list_manufactures'), data=data)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['manufacturers']), 1)
+        self.assertEqual(len(response.data['manufactures']), 1)
 
 
 class VehicleModelApiTest(TestCase):

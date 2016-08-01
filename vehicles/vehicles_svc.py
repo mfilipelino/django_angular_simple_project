@@ -22,8 +22,8 @@ def get_manufacturer(manufacture_id, as_dict=False):
     }
     result = list_manufacturer(filters, as_dict=as_dict)
 
-    if result['manufacturers']:
-        return result['manufacturers'][0]
+    if result['manufactures']:
+        return result['manufactures'][0]
     else:
         return None
 
@@ -34,8 +34,8 @@ def delete_manufacturer(manufacture_id):
     }
     result = list_manufacturer(filters)
 
-    if result['manufacturers']:
-        result['manufacturers'][0].delete()
+    if result['manufactures']:
+        result['manufactures'][0].delete()
         return True
     else:
         return False
@@ -57,7 +57,7 @@ def list_manufacturer(filters=None, as_dict=False):
     manufacturers = [manufacturer.to_dict() if as_dict else manufacturer for manufacturer in query]
 
     result = {
-        'manufacturers': manufacturers
+        'manufactures': manufacturers
     }
 
     return result

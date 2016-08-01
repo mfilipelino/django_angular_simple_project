@@ -51,7 +51,7 @@ class ManufacturerTest(TestCase):
     def test_list_manufacturer(self):
         manufacturer_dict = {}
         result = vehicles_svc.list_manufacturer(manufacturer_dict)
-        self.assertEqual(len(result['manufacturers']), 10)
+        self.assertEqual(len(result['manufactures']), 10)
 
     def test_list_manufacturer_filter_name(self):
         filter = {
@@ -59,7 +59,7 @@ class ManufacturerTest(TestCase):
         }
 
         result = vehicles_svc.list_manufacturer(filter)
-        self.assertEqual(len(result['manufacturers']), 1)
+        self.assertEqual(len(result['manufactures']), 1)
 
     def test_list_manufacturer_filter_name_contains(self):
         filter = {
@@ -67,11 +67,11 @@ class ManufacturerTest(TestCase):
         }
 
         result = vehicles_svc.list_manufacturer(filter)
-        self.assertEqual(len(result['manufacturers']), 10)
+        self.assertEqual(len(result['manufactures']), 10)
 
     def test_list_manufacturer_filter_none(self):
         result = vehicles_svc.list_manufacturer()
-        self.assertEqual(len(result['manufacturers']), 10)
+        self.assertEqual(len(result['manufactures']), 10)
 
 
 class VehicleModelTest(TestCase):

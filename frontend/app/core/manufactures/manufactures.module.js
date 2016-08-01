@@ -1,5 +1,5 @@
 (function(){
 	"use strict";
 
-	angular.module('manufactures', ["ajax"]);
+	angular.module('manufactures', ["manufactures-api"]);
 })();

@@ -1,8 +1,7 @@
 <div>
-:)
-{{ $ctrl.hello }}
-
-
-	
-
+	:)
+	{{ $ctrl.hello }}
+	<div ng-repeat="manufacture in $ctrl.service.manufactures">
+		{{ manufacture.name }}
+	</div>	
 </div>

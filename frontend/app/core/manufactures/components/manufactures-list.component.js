@@ -8,6 +8,7 @@
 		var component = {
 	    	templateUrl: '/static/core/manufactures/templates/manufactures-list.template.html',
 	    	controller: "ManufacturesListController",
+	    	controllerAs: '$ctrl'
 		};
 
 		return component;

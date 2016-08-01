@@ -24,8 +24,8 @@
 		                    <td> {{ manufacture.name }} </td>
 
 		                    <td class="actions">
-		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.edit($index)"> Edit </a>
-		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.delete($index)"> delete </a>
+		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editManufactureUpdateView($index)"> Edit </a>
+		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleleteManufacturePopView($index)"> delete </a>
 		                    </td>
 
 		                </tr>
@@ -38,8 +38,12 @@
        		</div>
         <aside role="complementary" class="col-md-3 col-md-push-3">
           	  <p> <label> Edit: </label> </p>
-          	  <p> <label> Name: </label> <input ng-model="$ctrl.newManufacture.name" /> </p>
-          	  <p> <a class="btn btn-danger btn-xs"  ng-click="$ctrl.save(newManufacture)"> Create </a> <p>
+          	  <p> <label> Name: </label> <input ng-model="$ctrl.service.stateManufactureEdit.name" /> </p>
+          	  <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufacturePushView()"> Create </a> 
+          	  	  <a class="btn btn-info btn-xs" ng-if="!$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufactureUpdateView()"> Save </a> 
+          	  	  <a class="btn btn-danger btn-xs" ng-click="$ctrl.service.clearEdit()"> Clear </a> 
+          	  </p>
+          	  
         </aside>
         <nav class="col-md-3 col-md-pull-9">
         	  <p> <label> Search <label> </label> <p>

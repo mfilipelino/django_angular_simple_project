@@ -25,8 +25,8 @@
             return Ajax.del(url);
         }
 
-        function saveManufacture(manufacture){
-            return Ajax.post(projectsApiBulkEndpoint, manufacture);
+        function saveManufacture(params){
+            return Ajax.post(projectsApiBulkEndpoint, params);
         }
     }
 })();

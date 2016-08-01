@@ -21,6 +21,19 @@
 				});
 		};
 
+		ctrl.save = function(){
+			console.log("Create");
+			var params = {
+				manufacture_dict: ctrl.newManufacture,
+			};
+			ctrl.service.saveManufacture(params)
+				.then(function(){
+					console.log("save");
+					ctrl.newManufacture = {};
+				});
+		}
 	}
 
 })();
+
+

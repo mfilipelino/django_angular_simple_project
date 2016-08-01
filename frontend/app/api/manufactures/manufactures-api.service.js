@@ -11,6 +11,7 @@
         var restApi = {
             getManufactures: getManufactures,
             deleteManufactureById: deleteManufactureById,
+            saveManufacture: saveManufacture,
         };
 
         return restApi;
@@ -24,5 +25,8 @@
             return Ajax.del(url);
         }
 
+        function saveManufacture(manufacture){
+            return Ajax.post(projectsApiBulkEndpoint, manufacture);
+        }
     }
 })();

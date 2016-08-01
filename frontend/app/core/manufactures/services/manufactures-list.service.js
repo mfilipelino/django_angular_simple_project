@@ -8,6 +8,7 @@
 		var service = {
 			init: init,
 			deleteManufactureById: deleteManufactureById,
+			saveManufacture: saveManufacture,
 		};
 		return service;
 
@@ -22,6 +23,11 @@
 
 		function deleteManufactureById(id){
 			var promisse = ManufacturesApi.deleteManufactureById(id);
+			return promisse;
+		}
+
+		function saveManufacture(manufacture){
+			var promisse = ManufacturesApi.saveManufacture(manufacture);
 			return promisse;
 		}
 	}

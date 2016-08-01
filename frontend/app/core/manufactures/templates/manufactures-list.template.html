@@ -1,13 +1,12 @@
-<br><br><br>
+<br><br>
 
-<div id="main" class="container-fluid">
- 		<h3 class="page-header"> Manufactures </h3>
-</div>
-
-<div class="row">
-    <div role="main" class="col-md-8 col-md-push-4">
-            
-		<div id="list" class="row">
+<div class="container">
+    <header class="row">
+      <p> <label> Manufactures </label> </p>
+    </header>
+    <div class="row">
+        <div role="main" class="col-md-6 col-md-push-3">
+            <div id="list" class="row">
 		 
 		    <div class="table-responsive col-md-12">
 		        <table class="table table-striped" cellspacing="0" cellpadding="0">
@@ -15,7 +14,7 @@
 		                <tr>
 		                    <th>ID</th>
 		                    <th>Name</th>
-		                    <th class="actions">Ações</th>
+		                    <th class="actions">Actions</th>
 		                 </tr>
 		            </thead>
 		            <tbody>
@@ -25,8 +24,8 @@
 		                    <td> {{ manufacture.name }} </td>
 
 		                    <td class="actions">
-		                        <a class="btn btn-warning btn-xs" href="edit.html" ng-click="$ctrl.edit($index)">Editar</a>
-		                        <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal" ng-click="$ctrl.delete($index)">Excluir</a>
+		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.edit($index)"> Edit </a>
+		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.delete($index)"> delete </a>
 		                    </td>
 
 		                </tr>
@@ -35,17 +34,19 @@
 		         </table>
 		 
 		     </div>
-		 </div> 
+		 	</div> 
+       		</div>
+        <aside role="complementary" class="col-md-3 col-md-push-3">
+          	  <p> <label> Edit: </label> </p>
+          	  <p> <label> Name: </label> <input ng-model="$ctrl.newManufacture.name" /> </p>
+          	  <p> <a class="btn btn-danger btn-xs"  ng-click="$ctrl.save(newManufacture)"> Create </a> <p>
+        </aside>
+        <nav class="col-md-3 col-md-pull-9">
+        	  <p> <label> Search <label> </label> <p>
+              <p> <label> Name: </label> <input ng-model="$ctrl.search.name" /> </p>
+        </nav>
     </div>
-    <aside role="complementary" class="col-md-4 col-md-pull-8"> 
-
-    	<label> Name: </label>
-            <input ng-model="$ctrl.search.name" />
-
-    </aside>
-
-   
-
-
+    <footer class="row">
+        
+    </footer>
 </div>
-

@@ -32,7 +32,7 @@
 	        return $http({
 	            method: 'POST',
 	            url: url,
-	            data: $.param(params) //e pra post a gente passa data
+	            data: params //e pra post a gente passa data
 	        });
 	    }
 

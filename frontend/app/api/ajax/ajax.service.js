@@ -8,7 +8,8 @@
 
 	    var model = {
 	        get: get,
-	        post: post
+	        post: post,
+	        del: del,
 	    };
 
 	    return model;
@@ -32,6 +33,16 @@
 	            method: 'POST',
 	            url: url,
 	            data: $.param(params) //e pra post a gente passa data
+	        });
+	    }
+
+	    function del(url, params){
+	        if(!params){
+	            params = {};
+	        }
+	        return $http({
+	            method: 'DELETE',
+	            url: url,
 	        });
 	    }
 	}

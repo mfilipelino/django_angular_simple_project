@@ -10,6 +10,7 @@
 
         var restApi = {
             getManufactures: getManufactures,
+            deleteManufactureById: deleteManufactureById,
         };
 
         return restApi;
@@ -17,6 +18,11 @@
         function getManufactures(){
            return Ajax.get(projectsApiBulkEndpoint);
         }
-                
+
+        function deleteManufactureById(id){
+            var url = manufactureApiById.replace("<manufactures-id>", id);
+            return Ajax.del(url);
+        }
+
     }
 })();

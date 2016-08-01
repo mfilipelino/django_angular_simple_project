@@ -7,6 +7,7 @@
 	function ManufacturesListService(ManufacturesApi){
 		var service = {
 			init: init,
+			deleteManufactureById: deleteManufactureById,
 		};
 		return service;
 
@@ -16,6 +17,11 @@
 			promisse.then(function(result){
 				service.manufactures = result.data.manufactures;
 			});
+			return promisse;
+		}
+
+		function deleteManufactureById(id){
+			var promisse = ManufacturesApi.deleteManufactureById(id);
 			return promisse;
 		}
 	}

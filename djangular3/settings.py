@@ -111,8 +111,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "bower_components"),
-    os.path.join(BASE_DIR, "js/source"),
+    os.path.join(BASE_DIR, "frontend/app"),
 )
 
 # where static files are storage

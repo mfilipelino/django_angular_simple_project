@@ -3,20 +3,31 @@
   <head>
     <meta charset="utf-8">
     <title>Google Phone Gallery</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="app.module.js"></script>
-    <script src="app.config.js"></script>
+    <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.css" />
 
-    <script src="api/ajax/ajax.module.js"></script>
-    <script src="api/ajax/ajax.config.js"></script>
-    <script src="api/ajax/ajax.service.js"></script>
+    <base href="/">
+
+    <script src="/static/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/static/bower_components/angular/angular.js"></script>
+    <script src="/static/bower_components/angular-route/angular-route.js"></script>
+    <script src="/static/app.module.js"></script>
+    <script src="/static/app.config.js"></script>
+
+    <script src="/static/api/ajax/ajax.module.js"></script>
+    <script src="/static/api/ajax/ajax.config.js"></script>
+    <script src="/static/api/ajax/ajax.service.js"></script>
+
+    <script src="/static/core/manufactures/manufactures.module.js"></script>
+    <script src="/static/core/manufactures/manufactures.config.js"></script>
+    <script src="/static/core/manufactures/controllers/manufactures-list.controller.js"></script>
+
+    <script src="/static/core/manufactures/components/manufactures-list.component.js"></script>    
+    <script src="/static/core/manufactures/services/manufactures-list.service.js"></script>
     
     </head>
   <body>
 
+    <a href="/manufactures"> Manufectures</a>
     <div class="view-container">
       <div ng-view class="view-frame"></div>
     </div>

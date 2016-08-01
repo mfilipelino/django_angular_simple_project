@@ -1,10 +1,13 @@
-'use strict';
+(function(){
 
-angular.module('vdfrontend').config(config);
+	'use strict';
 
-function config($locationProvider, $routeProvider) {
-  $locationProvider.html5Mode(true).hashPrefix('!');
-  // $locationProvider.hashPrefix('!');
+	angular.module('vdfrontend').config(config);
 
-  $routeProvider.otherwise('/manufactures');
-}
+	function config($locationProvider, $routeProvider) {
+	  	$locationProvider.html5Mode(true).hashPrefix('!');
+
+  		$routeProvider.otherwise('/manufactures');
+	}
+	
+})();

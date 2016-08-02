@@ -34,8 +34,7 @@
 			$q.all(promisses).then(function(result){
 				service.vehiclesModel = result.manufectures.data.vehicles_models;
 				service.manufactures = result.vehiclesModel.data.manufactures;
-
-				defer.resolve(result)
+				defer.resolve(result);
 			}, function(erro){
 				defer.reject(error);
 			});

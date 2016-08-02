@@ -75,7 +75,7 @@
 
 		function saveManufactureUpdateView(){
 
-			if(service._validationManufacture() == false){
+			if(_validationManufacture() ){
 				return {};
 			}
 
@@ -100,12 +100,7 @@
 		}
 
 		function _validationManufacture(){
-
-			if(service.stateManufactureEdit.name == ""){
-				return true;
-			}
-			return false;
-
+			return service.stateManufactureEdit.name == "";
 		}
 	}
 

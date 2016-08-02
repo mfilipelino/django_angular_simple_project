@@ -70,28 +70,19 @@
 
 		}
 
-		function _searchNameManufacture(array, id){
-			for( var element in array){
-				if(element.id === id){
-					return element;
-				}
-			}
-			return {
-				name: "",
-			};
-		}
-
-
 		function editVehicleModelUpdateView(index){
-			var manufacture_id = service.vehiclesModel[index].manufacturer_id;
-			var array = service.manufactures;
+			
+			var vm = service.vehiclesModel[index];
+
+			var manufacture = GLOBAL.getElementByProperty(service.manufactures, 'id', vm.manufacturer_id);
+
 			service.stateVehicleModelEdit = {
-				vehicle_type: service.vehiclesModel[index].vehicle_type,
-				name: service.vehiclesModel[index].name,
-				motor: "" + service.vehiclesModel[index].motor,
-				manufacture_name: _searchNameManufacture(array, manufacture_id).name,
+				selectedVehicleType: vm.vehicle_type,
+				name: vm.name,
+				selectedMotor: vm.motor.toString(),
+				selectedManufacture: manufacture,
+
 			};
-			service.vehiclesModel[index];
 			service.isCreate = false;
 		}
 
@@ -111,7 +102,7 @@
 				manufacturer_id: service.stateVehicleModelEdit.selectedManufacture.id,
 				motor: service.stateVehicleModelEdit.selectedMotor,
 				vehicle_type: service.stateVehicleModelEdit.selectedVehicleType, 
-			}
+			};
 
 			var params = {
 				vehiclemodel_dict: vehiclemodel_params,

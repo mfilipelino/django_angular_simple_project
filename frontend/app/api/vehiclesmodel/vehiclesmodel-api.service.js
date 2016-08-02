@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('manufactures-api').factory('VehiclesModelApi', VehiclesModelApi);
+    angular.module('vehiclesmodel-api').factory('VehiclesModelApi', VehiclesModelApi);
 
     function VehiclesModelApi(Ajax){
         
@@ -9,23 +9,23 @@
         var projectsApiBulkEndpoint = 'api/1/vehiclesmodel/';
 
         var restApi = {
-            getManufactures: getManufactures,
-            deleteManufactureById: deleteManufactureById,
-            saveManufacture: saveManufacture,
+            getVehiclesModel: getVehiclesModel,
+            deleteVehiclesModelById: deleteVehiclesModelById,
+            saveVehicleModel: saveVehicleModel,
         };
 
         return restApi;
 
-        function getManufactures(){
+        function getVehiclesModel(){
            return Ajax.get(projectsApiBulkEndpoint);
         }
 
-        function deleteManufactureById(id){
+        function deleteVehiclesModelById(id){
             var url = manufactureApiById.replace("<vehiclesmodel-id>", id);
             return Ajax.del(url);
         }
 
-        function saveManufacture(params){
+        function saveVehicleModel(params){
             return Ajax.post(projectsApiBulkEndpoint, params);
         }
     }

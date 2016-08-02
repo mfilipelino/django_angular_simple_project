@@ -81,6 +81,19 @@ def save_vehiclemodel(vehicle_model_dict):
         return None
 
 
+def delete_vehicle_model(vehicles_model_id):
+    filters = {
+        'id': vehicles_model_id
+    }
+    result = list_vehicle_model(filters)
+
+    if result['vehicles_models']:
+        result['vehicles_models'][0].delete()
+        return True
+    else:
+        return False
+
+
 def get_vehicle_model(vehicle_model_id, as_dict=False):
     filter = {
         'id': vehicle_model_id

@@ -14,18 +14,25 @@
 		                <tr>
 		                    <th>ID</th>
 		                    <th>Name</th>
+		                    <th>Type</th>
+		                    <th>Manufacture</th>
+		                    <th>Motor</th>
+		                    
 		                    <th class="actions">Actions</th>
 		                 </tr>
 		            </thead>
 		            <tbody>
-		                <tr ng-repeat="manufacture in $ctrl.service.manufactures | filter:$ctrl.search:strict">
+		                <tr ng-repeat="vehicleModel in $ctrl.service.vehiclesModel | filter:$ctrl.search:strict">
 
-		                    <td> {{ manufacture.id }} </td>
-		                    <td> {{ manufacture.name }} </td>
-
+		                    <td> {{ vehicleModel.id }} </td>
+		                    <td> {{ vehicleModel.name }} </td>
+		                    <td> {{ vehicleModel.vehicle_type }} </td>
+		                    <td> {{ vehicleModel.manufacturer }} </td>
+		                    <td> {{ vehicleModel.motor }} </td>
+		                    	
 		                    <td class="actions">
-		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editManufactureUpdateView($index)"> Edit </a>
-		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleleteManufacturePopView($index)"> delete </a>
+		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.saveVehicleModelUpdateView($index)"> Edit </a>
+		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleteVehicleModelPopView($index)"> delete </a>
 		                    </td>
 
 		                </tr>
@@ -36,18 +43,72 @@
 		     </div>
 		 	</div> 
        		</div>
+
         <aside role="complementary" class="col-md-3 col-md-push-3">
           	  <p> <label> Edit: </label> </p>
-          	  <p> <label> Name: </label> <input ng-model="$ctrl.service.stateManufactureEdit.name" /> </p>
-          	  <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufacturePushView()"> Create </a> 
-          	  	  <a class="btn btn-info btn-xs" ng-if="!$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufactureUpdateView()"> Save </a> 
+          	  <p> <label> Name: </label>          <input ng-model="$ctrl.service.stateVehicleModelEdit.name" />          </p>
+          	  <p> <label> Manufacture: </label>   
+          	  			<select ng-model="$ctrl.service.stateVehicleModelEdit.manufacturer_id">
+							<option ng-repeat="manufacture in $ctrl.service.manufactures" value="{{manufacture.id}}"> {{ manufacture.name }} </option>
+						</select>
+			  </p>
+
+          	  <p> 
+          	  		<label> Type: </label>  
+
+          	  			<select class="selectpicker" ng-model="$ctrl.service.stateVehicleModelEdit.vehicle_type">
+							<option ng-repeat="vehicleType in $ctrl.service.vehicleTypeChoice" value="{{vehicleType}}"> {{ vehicleType }}  </option>
+						</select>
+          	  </p>
+
+          	  <p> 
+          	  		<label> Motor: </label> 
+
+          	  		<select class="selectpicker" ng-if="$ctrl.service.stateVehicleModelEdit.vehicle_type == 'car'" ng-model="$ctrl.service.stateVehicleModelEdit.motor">
+							<option ng-repeat="mmotor in $ctrl.service.motorChoiceCar" value="{{mmotor}}"> {{ mmotor }}  </option>
+					</select>
+
+					<select class="selectpicker" ng-if="$ctrl.service.stateVehicleModelEdit.vehicle_type == 'bike'" ng-model="$ctrl.service.stateVehicleModelEdit.motor">
+							<option ng-repeat="mmotor in $ctrl.service.motorChoiceBike" value="{{mmotor}}"> {{ mmotor }}  </option>
+					</select>  
+
+          	  </p>
+          	  
+          	  <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.saveVehicleModelPushView()"> Create </a> 
+          	  	  <a class="btn btn-info btn-xs" ng-if="!$ctrl.service.isCreate" ng-click="$ctrl.service.saveVehicleModelPushView()"> Save </a> 
           	  	  <a class="btn btn-danger btn-xs" ng-click="$ctrl.service.clearEdit()"> Clear </a> 
           	  </p>
           	  
         </aside>
         <nav class="col-md-3 col-md-pull-9">
-        	  <p> <label> Search <label> </label> <p>
-              <p> <label> Name: </label> <input ng-model="$ctrl.search.name" /> </p>
+        	  <p> <label> Search: </label> </p>
+          	  <p> <label> Name: </label>          <input ng-model="$ctrl.search.name" />          </p>
+          	  <p> <label> Manufacture: </label>   
+          	  			<select ng-model="$ctrl.search.manufacturer_id">
+							<option ng-repeat="manufacture in $ctrl.service.manufactures" value="{{manufacture.id}}"> {{ manufacture.name }} </option>
+						</select>
+			  </p>
+
+          	  <p> 
+          	  		<label> Type: </label>  
+
+          	  			<select class="selectpicker" ng-model="$ctrl.search.vehicle_type">
+							<option ng-repeat="vehicleType in $ctrl.service.vehicleTypeChoice" value="{{vehicleType}}"> {{ vehicleType }}  </option>
+						</select>
+          	  </p>
+
+          	  <p> 
+          	  		<label> Motor: </label> 
+
+          	  		<select class="selectpicker" ng-if="$ctrl.stateVehicleModelEdit.vehicle_type == 'car'" ng-model="$ctrl.search.motor">
+							<option ng-repeat="mmotor in $ctrl.service.motorChoiceCar" value="{{mmotor}}"> {{ mmotor }}  </option>
+					</select>
+
+					<select class="selectpicker" ng-if="$ctrl.stateVehicleModelEdit.vehicle_type == 'bike'" ng-model="$ctrl.search.motor">
+							<option ng-repeat="mmotor in $ctrl.service.motorChoiceBike" value="{{mmotor}}"> {{ mmotor }}  </option>
+					</select>  
+
+          	  </p>
         </nav>
     </div>
     <footer class="row">

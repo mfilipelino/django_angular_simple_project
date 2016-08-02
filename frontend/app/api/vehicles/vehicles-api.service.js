@@ -5,28 +5,28 @@
 
     function VehiclesApi(Ajax){
         
-        var manufactureApiById = 'api/1/manufactures/<manufactures-id>/';
-        var projectsApiBulkEndpoint = 'api/1/manufactures/';
+        var manufactureApiById = 'api/1/vehicles/<vehicles-id>/';
+        var vehiclesApiEndPoint = 'api/1/vehicles/';
 
         var restApi = {
-            getManufactures: getManufactures,
-            deleteManufactureById: deleteManufactureById,
+            getVehicles: getVehicles,
+            deleteVehiclesById: deleteVehiclesById,
             saveManufacture: saveManufacture,
         };
 
         return restApi;
 
-        function getManufactures(){
-           return Ajax.get(projectsApiBulkEndpoint);
+        function getVehicles(){
+           return Ajax.get(vehiclesApiEndPoint);
         }
 
-        function deleteManufactureById(id){
-            var url = manufactureApiById.replace("<manufactures-id>", id);
-            return Ajax.del(url);
-        }
+            function deleteVehiclesById(id){
+                var url = manufactureApiById.replace("<vehicles-id>", id);
+                return Ajax.del(url);
+            }
 
         function saveManufacture(params){
-            return Ajax.post(projectsApiBulkEndpoint, params);
+            return Ajax.post(vehiclesApiEndPoint, params);
         }
     }
 })();

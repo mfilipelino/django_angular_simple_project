@@ -68,7 +68,8 @@ class VehicleView(APIView):
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
 
-class VehiclesView(APIView):
+class VehiclesListView(APIView):
+
     def get(self, request, *args, **kargs):
         filters = request.query_params.get('filters', '{}')
         filters = json.loads(filters)

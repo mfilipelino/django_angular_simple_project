@@ -48,7 +48,7 @@ class Vehicle(models.Model):
     def to_dict(self):
         dic = {
             'id': self.id,
-            'vehicle_model': self.vehicle_model_id,
+            'vehicle_model_id': self.vehicle_model_id,
             'year': self.year,
             'mileage': self.mileage,
             'color': self.color

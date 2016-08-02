@@ -7,68 +7,97 @@
     <div class="row">
         <div role="main" class="col-md-6 col-md-push-3">
             <div id="list" class="row">
-		 
-		    <div class="table-responsive col-md-12">
-		        <table class="table table-striped" cellspacing="0" cellpadding="0">
-		            <thead>
-		                <tr>
-		                    <th>ID</th>
-		                    <th>Name</th>
-		                    <th class="actions">Actions</th>
-		                 </tr>
-		            </thead>
-		            <tbody>
-		                <tr ng-repeat="manufacture in $ctrl.service.manufactures | filter:$ctrl.search:strict">
+     
+        <div class="table-responsive col-md-12">
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Year</th>
+                        <th>Color</th>
+                        <th>Model</th>
+                        <th>Mileage</th>
+                        
+                        <th class="actions">Actions</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="vehicle in $ctrl.service.vehicles | filter:$ctrl.service.search:strict">
 
-		                    <td> {{ manufacture.id }} </td>
-		                    <td> {{ manufacture.name }} </td>
+                        <td> {{ vehicle.year }} </td>
+                        <td> {{ vehicle.color }} </td>
+                        <td> {{ vehicle.vehicle_model }} </td>
+                        <td> {{ vehicle.mileage }} </td>
+                          
+                        <td class="actions">
+                            <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.setVehicleToEdit(vehicle)"> Edit </a>
+                            <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleteVehicle(vehicle)"> delete </a>
+                        </td>
 
-		                    <td class="actions">
-		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editManufactureUpdateView($index)"> Edit </a>
-		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleleteManufacturePopView($index)"> delete </a>
-		                    </td>
+                    </tr>
+     
+                </tbody>
+             </table>
+     
+         </div>
+      </div> 
+          </div>
 
-		                </tr>
-		 
-		            </tbody>
-		         </table>
-		 
-		     </div>
-		 	</div> 
-       		</div>
         <aside role="complementary" class="col-md-3 col-md-push-3">
-          	  <p> <label> Edit: </label> </p>
-          	  <p> <label> Name: </label> <input ng-model="$ctrl.service.stateManufactureEdit.name" /> </p>
-          	  <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufacturePushView()"> Create </a> 
-          	  	  <a class="btn btn-info btn-xs" ng-if="!$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufactureUpdateView()"> Save </a> 
-          	  	  <a class="btn btn-danger btn-xs" ng-click="$ctrl.service.clearEdit()"> Clear </a> 
-          	  </p>
-          	  
+
+              <p> 
+                <label> Edit: </label> 
+                </p>
+
+              <p> <label> VehicleModel: </label>   
+
+               
+                  <select ng-model="$ctrl.service.currentVehicle.selectedVehicleModel" ng-options="m.name for m in ::$ctrl.service.vehiclesModel track by m.id">
+                  </select>
+              </p>
+
+              <p> 
+                  <label> Color: </label>  
+                    <select ng-model="$ctrl.service.currentVehicle.selectedColor" ng-options="mt for mt in ::$ctrl.service.colorChoice">
+                    </select>
+              </p>
+              <p> 
+                  <label> Year: </label>  
+                    <select ng-model="$ctrl.service.currentVehicle.selectedYear" ng-options="vt for vt in ::$ctrl.service.vehicleYearChoice">
+                    </select>
+              </p>
+
+              
+              <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.createVehicle()"> Create </a> 
+                  <a class="btn btn-info btn-xs" ng-if="!$ctrl.service.isCreate" ng-click="$ctrl.service.updateVehicle()"> Save </a> 
+                  <a class="btn btn-danger btn-xs" ng-click="$ctrl.service.clearEdit()"> Clear </a> 
+              </p>
+              
         </aside>
         <nav class="col-md-3 col-md-pull-9">
-        	  <p> <label> Search <label> </label> <p>
-              <p> <label> Name: </label> <input ng-model="$ctrl.search.name" /> </p>
+            <p> <label> Search: </label> </p>
+
+              <p> <label> Vehicle Model: </label>   
+                  <select ng-model="$ctrl.service.vehicleModelFilter" ng-options="vm.name for m in ::$ctrl.service.vehiclesModel track by vm.id"  ng-change="$ctrl.service.changeVehicleModelFilter()">
+                    </select>
+
+        </p>
+
+              <p> 
+                  <label> Color: </label> 
+                    <select ng-model="$ctrl.service.search.color" ng-options="c for c in ::$ctrl.service.colorChoice">
+                    </select>                    
+              </p>
+
+              <p> 
+                    <label> Year: </label>  
+                    <select ng-model="$ctrl.service.search.year" ng-options="y for y in ::$ctrl.service.yearChoice">
+                    </select>
+              </p>
+
+               <td class="actions">
+                    <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.clearSearch()"> clear </a>
+                </td>
         </nav>
     </div>
-    <footer class="row">
-        
-    </footer>
 </div>
-
-<div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body…</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

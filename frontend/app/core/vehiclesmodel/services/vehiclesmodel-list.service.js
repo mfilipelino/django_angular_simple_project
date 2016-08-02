@@ -1,18 +1,14 @@
 (function(){
 	"use strict";
 
-	angular.module('manufactures').factory('VehiclesModelListService', VehiclesModelListService);
+	angular.module('vehiclesmodel').factory('VehiclesModelListService', VehiclesModelListService);
 
 
 	function VehiclesModelListService(VehiclesModelApi, ManufacturesApi){
 
+		var ctrl = this;
+
 		var service = {
-			stateVehicleModelEdit: {
-				vehicle_type: 'car',
-				name: "",
-				manufacturer_id: 1,
-				motor: 0,
-			},
 			init: init,
 			editVehicleModelUpdateView: editVehicleModelUpdateView,
 			deleteVehicleModelPopView: deleteVehicleModelPopView,
@@ -24,13 +20,26 @@
 		return service;
 
 		function init(){
+
 			service.vehiclesModel = [];
 			service.isCreate = true;
 			service.selectManufacture = {};
 			service.vehicleTypeChoice = ['car', 'bike'];
-			service.motorChoiceCar =  [1000, 1200, 1400, 1600, 1800, 2000]; 
-			service.motorChoiceBike = [125, 250, 500, 1000 ];
+			service.motorChoiceCar =  ["125", "250", "500", "1000", "1200", "1400", "1600", "1800", "2000"];
+
+			service.stateVehicleModelEdit = {
+				vehicle_type: '',
+				name: "",
+				manufacture_name: '',
+				motor: "",
+			};
+
 			_getManufactures();
+			return _getVehiclesModel();
+			
+		}
+
+		function _getVehiclesModel(){
 
 			var promisse = VehiclesModelApi.getVehiclesModel();
 			promisse.then(sucess, erro);
@@ -40,9 +49,10 @@
 			}
 
 			function erro(result){
-				alert(error.data);
+				alert(result.data);
 			}
 			return promisse;
+
 		}
 
 		function _getManufactures(){
@@ -54,14 +64,34 @@
 				service.manufactures = result.data.manufactures;
 			}
 
-			function erro(){
-				console.log(result.data);
+			function erro(result){
+				alert(result.data);
 			}
+
+		}
+
+		function _searchNameManufacture(array, id){
+			for( var element in array){
+				if(element.id === id){
+					return element;
+				}
+			}
+			return {
+				name: "",
+			};
 		}
 
 
 		function editVehicleModelUpdateView(index){
-			service.stateManufactureEdit = service.manufactures[index];
+			var manufacture_id = service.vehiclesModel[index].manufacturer_id;
+			var array = service.manufactures;
+			service.stateVehicleModelEdit = {
+				vehicle_type: service.vehiclesModel[index].vehicle_type,
+				name: service.vehiclesModel[index].name,
+				motor: "" + service.vehiclesModel[index].motor,
+				manufacture_name: _searchNameManufacture(array, manufacture_id).name,
+			};
+			service.vehiclesModel[index];
 			service.isCreate = false;
 		}
 
@@ -75,8 +105,16 @@
 		}
 
 		function _saveVehicleModel(){
+
+			var vehiclemodel_params = {
+				name: service.stateVehicleModelEdit.name,
+				manufacturer_id: service.stateVehicleModelEdit.selectedManufacture.id,
+				motor: service.stateVehicleModelEdit.selectedMotor,
+				vehicle_type: service.stateVehicleModelEdit.selectedVehicleType, 
+			}
+
 			var params = {
-				vehiclemodel_dict: service.stateVehicleModelEdit,
+				vehiclemodel_dict: vehiclemodel_params,
 			};
 			var promisse = VehiclesModelApi.saveVehicleModel(params);
 			return promisse;
@@ -92,7 +130,7 @@
 			}
 
 			function error(result){
-				alert(error.data);
+				alert(result.data);
 			}
 		}
 
@@ -103,18 +141,18 @@
 			return promisse;
 
 			function sucess(result){
-				console.log("sucess");
+				
 			}
 
 			function error(result){
-				alert(error.data);
+				alert(result.data);
 			}
 
 		}
 
 		function clearEdit(){
 			console.log("clear");
-			service.stateManufactureEdit = {};
+			service.stateVehicleModelEdit = {};
 			service.isCreate = true;
 		}
 	}

@@ -15,7 +15,6 @@
 		                    <th>ID</th>
 		                    <th>Name</th>
 		                    <th>Type</th>
-		                    <th>Manufacture</th>
 		                    <th>Motor</th>
 		                    
 		                    <th class="actions">Actions</th>
@@ -27,11 +26,10 @@
 		                    <td> {{ vehicleModel.id }} </td>
 		                    <td> {{ vehicleModel.name }} </td>
 		                    <td> {{ vehicleModel.vehicle_type }} </td>
-		                    <td> {{ vehicleModel.manufacturer }} </td>
 		                    <td> {{ vehicleModel.motor }} </td>
 		                    	
 		                    <td class="actions">
-		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.saveVehicleModelUpdateView($index)"> Edit </a>
+		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editVehicleModelUpdateView($index)"> Edit </a>
 		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleteVehicleModelPopView($index)"> delete </a>
 		                    </td>
 
@@ -45,33 +43,31 @@
        		</div>
 
         <aside role="complementary" class="col-md-3 col-md-push-3">
-          	  <p> <label> Edit: </label> </p>
+
+          	  <p> 
+                <label> Edit: </label> 
+                </p>
           	  <p> <label> Name: </label>          <input ng-model="$ctrl.service.stateVehicleModelEdit.name" />          </p>
           	  <p> <label> Manufacture: </label>   
-          	  			<select ng-model="$ctrl.service.stateVehicleModelEdit.manufacturer_id">
-							<option ng-repeat="manufacture in $ctrl.service.manufactures" value="{{manufacture.id}}"> {{ manufacture.name }} </option>
-						</select>
+
+               
+          	  		<select ng-model="$ctrl.service.stateVehicleModelEdit.selectedManufacture" ng-options="m.name for m in ::$ctrl.service.manufactures track by m.id">
+          	  			 {{ manufacture.name }} 
+          	  		</select>
 			  </p>
 
           	  <p> 
           	  		<label> Type: </label>  
-
-          	  			<select class="selectpicker" ng-model="$ctrl.service.stateVehicleModelEdit.vehicle_type">
-							<option ng-repeat="vehicleType in $ctrl.service.vehicleTypeChoice" value="{{vehicleType}}"> {{ vehicleType }}  </option>
-						</select>
+                    <select ng-model="$ctrl.service.stateVehicleModelEdit.selectedVehicleType" ng-options="vt for vt in ::$ctrl.service.vehicleTypeChoice">
+                         {{ vt }} 
+                    </select>
           	  </p>
 
           	  <p> 
-          	  		<label> Motor: </label> 
-
-          	  		<select class="selectpicker" ng-if="$ctrl.service.stateVehicleModelEdit.vehicle_type == 'car'" ng-model="$ctrl.service.stateVehicleModelEdit.motor">
-							<option ng-repeat="mmotor in $ctrl.service.motorChoiceCar" value="{{mmotor}}"> {{ mmotor }}  </option>
-					</select>
-
-					<select class="selectpicker" ng-if="$ctrl.service.stateVehicleModelEdit.vehicle_type == 'bike'" ng-model="$ctrl.service.stateVehicleModelEdit.motor">
-							<option ng-repeat="mmotor in $ctrl.service.motorChoiceBike" value="{{mmotor}}"> {{ mmotor }}  </option>
-					</select>  
-
+          	  		<label> Motor: </label>  
+                    <select ng-model="$ctrl.service.stateVehicleModelEdit.selectedMotor" ng-options="mt for mt in ::$ctrl.service.motorChoiceCar">
+                         {{ mt }} 
+                    </select>
           	  </p>
           	  
           	  <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.saveVehicleModelPushView()"> Create </a> 

@@ -31,7 +31,7 @@ class VehicleModel(models.Model):
         dic = {
             'id': self.id,
             'name': self.name,
-            'manufacturer': self.manufacturer_id,
+            'manufacturer_id': self.manufacturer_id,
             'motor': self.motor,
             'vehicle_type': self.vehicle_type
         }

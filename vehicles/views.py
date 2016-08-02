@@ -33,13 +33,18 @@ class VehicleManufacturerListView(APIView):
 
 
 class VehicleModelView(APIView):
-    def get(self, request, vehicles_model_id, *args, **kargs):
+    def get(self, request, vehicles_model_id=None, *args, **kargs):
         result = vehicles_svc.get_vehicle_model(vehicles_model_id, as_dict=True)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
     def delete(self, request, vehicles_model_id=None, *args, **kargs):
         result = vehicles_svc.delete_vehicle_model(vehicles_model_id)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
+
+    def post(self, request, vehicles_model_id=None, *args, **kargs):
+        vehiclemodel_dict = request.data.get('vehiclemodel_dict')
+        result = vehicles_svc.save_vehiclemodel(vehiclemodel_dict)
+        return Response(data=result.to_dict(), status=status.HTTP_200_OK, content_type='application/json')
 
 
 class VehicleModelListView(APIView):

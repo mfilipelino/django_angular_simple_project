@@ -12,8 +12,8 @@
 			init: init,
 			editVehicleModelUpdateView: editVehicleModelUpdateView,
 			deleteVehicleModelPopView: deleteVehicleModelPopView,
-			saveVehicleModelPushView: saveVehicleModelPushView,
-			saveVehicleModelUpdateView: saveVehicleModelUpdateView,
+			createVehicleModel: createVehicleModel,
+			updateVehicleModel: updateVehicleModel,
 			clearEdit: clearEdit,
 
 		};
@@ -77,6 +77,7 @@
 			var manufacture = GLOBAL.getElementByProperty(service.manufactures, 'id', vm.manufacturer_id);
 
 			service.stateVehicleModelEdit = {
+				id: vm.id,
 				selectedVehicleType: vm.vehicle_type,
 				name: vm.name,
 				selectedMotor: vm.motor.toString(),
@@ -98,6 +99,7 @@
 		function _saveVehicleModel(){
 
 			var vehiclemodel_params = {
+				id: service.stateVehicleModelEdit.id,
 				name: service.stateVehicleModelEdit.name,
 				manufacturer_id: service.stateVehicleModelEdit.selectedManufacture.id,
 				motor: service.stateVehicleModelEdit.selectedMotor,
@@ -107,11 +109,19 @@
 			var params = {
 				vehiclemodel_dict: vehiclemodel_params,
 			};
-			var promisse = VehiclesModelApi.saveVehicleModel(params);
+
+			var promisse;
+
+			if(vehiclemodel_params.id){
+				promisse = VehiclesModelApi.updateVehicleModel(params);
+			}
+			else{
+				promisse = VehiclesModelApi.saveVehicleModel(params);
+			}
 			return promisse;
 		}
 
-		function saveVehicleModelPushView(){
+		function createVehicleModel(){
 
 			var promisse = _saveVehicleModel().then(sucess, error);
 			return promisse;
@@ -125,15 +135,18 @@
 			}
 		}
 
-		function saveVehicleModelUpdateView(){
+		function updateVehicleModel(){
 
 			var promisse = _saveVehicleModel().then(sucess, error);
 			service.clearEdit();
 			return promisse;
 
 			function sucess(result){
-				
+				var data = result.data;
+				var vehicleModel = GLOBAL.getElementByProperty(service.vehiclesModel, 'id', data.id);
+				Object.assign(vehicleModel, data);
 			}
+
 
 			function error(result){
 				alert(result.data);

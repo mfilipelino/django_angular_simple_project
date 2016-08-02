@@ -91,10 +91,15 @@
 
 		function deleteVehicleModelPopView(index){
 			var id = service.vehiclesModel[index].id;
-			var promisse = VehiclesModelApi.deleteVehiclesModelById(id)
-								.then(function(result){
-									service.vehiclesModel.splice(index, 1);
-							});
+			var promisse = VehiclesModelApi.deleteVehiclesModelById(id);
+
+			promisse.then(function(result){
+				var deletedVehicleModelVector = service.vehiclesModel.splice(index, 1);
+				var deletedVehicleModel = deletedVehicleModelVector[0];
+				if(service.stateVehicleModelEdit.id === deletedVehicleModel.id){
+					service.clearEdit();
+				}
+			});
 			return promisse;
 		}
 
@@ -130,6 +135,7 @@
 
 			function sucess(result){
 				service.vehiclesModel.push(result.data);
+				service.clearEdit();
 			}
 
 			function error(result){
@@ -163,6 +169,7 @@
 
 		function clearSearch(){
 			service.search = {};
+			service.manufacturerFilter = null;
 		}
 
 		function changeManufacturerFilter(){

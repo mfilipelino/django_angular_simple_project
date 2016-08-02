@@ -86,9 +86,8 @@
 
           	  <p> 
           	  		<label> Type: </label> 
-      	  			<select class="selectpicker" ng-model="$ctrl.service.search.vehicle_type">
-						<option ng-repeat="vehicleType in $ctrl.service.vehicleTypeChoice" value="{{vehicleType}}"> {{ vehicleType }}  </option>
-					</select>
+                    <select ng-model="$ctrl.service.search.vehicle_type" ng-options="vt for vt in ::$ctrl.service.vehicleTypeChoice">
+                    </select>                    
           	  </p>
 
           	  <p> 
@@ -102,7 +101,4 @@
                 </td>
         </nav>
     </div>
-    <footer class="row">
-        
-    </footer>
 </div>

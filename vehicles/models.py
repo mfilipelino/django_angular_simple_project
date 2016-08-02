@@ -28,14 +28,14 @@ class VehicleModel(models.Model):
     motor = models.IntegerField(blank=False, null=False, default=1000)
 
     def to_dict(self):
-        dic = {
+        vechicle_model_dict = {
             'id': self.id,
             'name': self.name,
             'manufacturer_id': self.manufacturer_id,
             'motor': self.motor,
             'vehicle_type': self.vehicle_type
         }
-        return dic
+        return vechicle_model_dict
 
 
 class Vehicle(models.Model):

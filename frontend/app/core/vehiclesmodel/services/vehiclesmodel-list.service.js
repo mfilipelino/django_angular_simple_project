@@ -15,7 +15,8 @@
 			createVehicleModel: createVehicleModel,
 			updateVehicleModel: updateVehicleModel,
 			clearEdit: clearEdit,
-
+			clearSearch: clearSearch,
+			changeManufacturerFilter: changeManufacturerFilter
 		};
 		return service;
 
@@ -26,6 +27,7 @@
 			service.selectManufacture = {};
 			service.vehicleTypeChoice = ['car', 'bike'];
 			service.motorChoiceCar =  ["125", "250", "500", "1000", "1200", "1400", "1600", "1800", "2000"];
+			service.search = {};
 
 			service.stateVehicleModelEdit = {
 				vehicle_type: '',
@@ -155,9 +157,16 @@
 		}
 
 		function clearEdit(){
-			console.log("clear");
 			service.stateVehicleModelEdit = {};
 			service.isCreate = true;
+		}
+
+		function clearSearch(){
+			service.search = {};
+		}
+
+		function changeManufacturerFilter(){
+			service.search.manufacturer_id = service.manufacturerFilter.id;
 		}
 	}
 

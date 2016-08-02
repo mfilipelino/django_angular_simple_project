@@ -16,17 +16,19 @@
 		                    <th>Name</th>
 		                    <th>Type</th>
 		                    <th>Motor</th>
+                            <th>Manufacture ID</th>
 		                    
 		                    <th class="actions">Actions</th>
 		                 </tr>
 		            </thead>
 		            <tbody>
-		                <tr ng-repeat="vehicleModel in $ctrl.service.vehiclesModel | filter:$ctrl.search:strict">
+		                <tr ng-repeat="vehicleModel in $ctrl.service.vehiclesModel | filter:$ctrl.service.search:strict">
 
 		                    <td> {{ vehicleModel.id }} </td>
 		                    <td> {{ vehicleModel.name }} </td>
 		                    <td> {{ vehicleModel.vehicle_type }} </td>
 		                    <td> {{ vehicleModel.motor }} </td>
+                            <td> {{ vehicleModel.manufacturer_id }} </td>
 		                    	
 		                    <td class="actions">
 		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editVehicleModelUpdateView($index)"> Edit </a>
@@ -52,21 +54,18 @@
 
                
           	  		<select ng-model="$ctrl.service.stateVehicleModelEdit.selectedManufacture" ng-options="m.name for m in ::$ctrl.service.manufactures track by m.id">
-          	  			 {{ manufacture.name }} 
           	  		</select>
 			  </p>
 
           	  <p> 
           	  		<label> Type: </label>  
                     <select ng-model="$ctrl.service.stateVehicleModelEdit.selectedVehicleType" ng-options="vt for vt in ::$ctrl.service.vehicleTypeChoice">
-                         {{ vt }} 
                     </select>
           	  </p>
 
           	  <p> 
           	  		<label> Motor: </label>  
                     <select ng-model="$ctrl.service.stateVehicleModelEdit.selectedMotor" ng-options="mt for mt in ::$ctrl.service.motorChoiceCar">
-                         {{ mt }} 
                     </select>
           	  </p>
           	  
@@ -78,33 +77,29 @@
         </aside>
         <nav class="col-md-3 col-md-pull-9">
         	  <p> <label> Search: </label> </p>
-          	  <p> <label> Name: </label>          <input ng-model="$ctrl.search.name" />          </p>
+          	  <p> <label> Name: </label>          <input ng-model="$ctrl.service.search.name" />          </p>
           	  <p> <label> Manufacture: </label>   
-          	  			<select ng-model="$ctrl.search.manufacturer_id">
-							<option ng-repeat="manufacture in $ctrl.service.manufactures" value="{{manufacture.id}}"> {{ manufacture.name }} </option>
-						</select>
+          	  		<select ng-model="$ctrl.service.manufacturerFilter" ng-options="m.name for m in ::$ctrl.service.manufactures track by m.id"  ng-change="$ctrl.service.changeManufacturerFilter()">
+                    </select>
+
 			  </p>
 
           	  <p> 
-          	  		<label> Type: </label>  
-
-          	  			<select class="selectpicker" ng-model="$ctrl.search.vehicle_type">
-							<option ng-repeat="vehicleType in $ctrl.service.vehicleTypeChoice" value="{{vehicleType}}"> {{ vehicleType }}  </option>
-						</select>
+          	  		<label> Type: </label> 
+      	  			<select class="selectpicker" ng-model="$ctrl.service.search.vehicle_type">
+						<option ng-repeat="vehicleType in $ctrl.service.vehicleTypeChoice" value="{{vehicleType}}"> {{ vehicleType }}  </option>
+					</select>
           	  </p>
 
           	  <p> 
-          	  		<label> Motor: </label> 
-
-          	  		<select class="selectpicker" ng-if="$ctrl.stateVehicleModelEdit.vehicle_type == 'car'" ng-model="$ctrl.search.motor">
-							<option ng-repeat="mmotor in $ctrl.service.motorChoiceCar" value="{{mmotor}}"> {{ mmotor }}  </option>
-					</select>
-
-					<select class="selectpicker" ng-if="$ctrl.stateVehicleModelEdit.vehicle_type == 'bike'" ng-model="$ctrl.search.motor">
-							<option ng-repeat="mmotor in $ctrl.service.motorChoiceBike" value="{{mmotor}}"> {{ mmotor }}  </option>
-					</select>  
-
+                    <label> Motor: </label>  
+                    <select ng-model="$ctrl.service.search.motor" ng-options="mt for mt in ::$ctrl.service.motorChoiceCar">
+                    </select>
           	  </p>
+
+               <td class="actions">
+                    <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.clearSearch()"> clear </a>
+                </td>
         </nav>
     </div>
     <footer class="row">

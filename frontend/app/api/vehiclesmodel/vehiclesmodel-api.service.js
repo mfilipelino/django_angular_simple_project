@@ -32,7 +32,7 @@
 
         function updateVehicleModel(params){
             var id = params.vehiclemodel_dict.id;
-            var url = manufactureApiById.replace("<vehiclesmodel-id>", id)
+            var url = manufactureApiById.replace("<vehiclesmodel-id>", id);
             return Ajax.post(url, params);
         }
     }

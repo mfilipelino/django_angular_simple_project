@@ -43,7 +43,8 @@ class VehicleModelView(APIView):
 
     def post(self, request, vehicles_model_id=None, *args, **kargs):
         vehiclemodel_dict = request.data.get('vehiclemodel_dict')
-        if vehiclemodel_dict['id'] != int(vehicles_model_id): raise Exception("incopamtible id's")
+        if vehiclemodel_dict['id'] != int(vehicles_model_id):
+            raise Exception("incopamtible id's")
         result = vehicles_svc.save_vehiclemodel(vehiclemodel_dict)
         return Response(data=result.to_dict(), status=status.HTTP_200_OK, content_type='application/json')
 

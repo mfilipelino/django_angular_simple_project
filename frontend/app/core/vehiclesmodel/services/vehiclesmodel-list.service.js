@@ -55,7 +55,7 @@
 
 		function saveManufacturePushView(){
 
-			var promisse = _saveManufacture().then(sucess).then(error);
+			var promisse = _saveManufacture().then(sucess, error);
 			return promisse;
 
 			function sucess(result){
@@ -63,14 +63,13 @@
 			}
 
 			function error(result){
-				console.log("error");
 				alert(error.data);
 			}
 		}
 
 		function saveManufactureUpdateView(){
 
-			var promisse = _saveManufacture().then(sucess(result)).then(error(result));
+			var promisse = _saveManufacture().then(sucess, error);
 			service.clearEdit();
 			return promisse;
 

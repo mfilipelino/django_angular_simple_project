@@ -53,9 +53,15 @@
 			return promisse;
 		}
 
+
+
 		function saveManufacturePushView(){
 
-			var promisse = _saveManufacture().then(sucess).then(error);
+			if( _validationManufacture() ){
+				return {};
+			}
+
+			var promisse = _saveManufacture().then(sucess, error);
 			return promisse;
 
 			function sucess(result){
@@ -63,14 +69,17 @@
 			}
 
 			function error(result){
-				console.log("error");
-				alert(error.data);
+				alert(result.data);
 			}
 		}
 
 		function saveManufactureUpdateView(){
 
-			var promisse = _saveManufacture().then(sucess(result)).then(error(result));
+			if(service._validationManufacture() == false){
+				return {};
+			}
+
+			var promisse = _saveManufacture().then(sucess, error);
 			service.clearEdit();
 			return promisse;
 
@@ -88,6 +97,15 @@
 			console.log("clear");
 			service.stateManufactureEdit = {};
 			service.isCreate = true;
+		}
+
+		function _validationManufacture(){
+
+			if(service.stateManufactureEdit.name == ""){
+				return true;
+			}
+			return false;
+
 		}
 	}
 

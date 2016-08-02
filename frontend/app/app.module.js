@@ -6,7 +6,9 @@
 	// Define the `vdfrontend` module
 	angular.module('vdfrontend', [
 	  'ngRoute',
-	  'manufactures'
+	  'manufactures',
+	  'vehicles',
+	  'vehiclesmodel',
 	]);
 	
 })();

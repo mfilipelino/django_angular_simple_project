@@ -1,0 +1,56 @@
+<br><br>
+
+<div class="container">
+    <header class="row">
+      <p> <label> Vehicles Model </label> </p>
+    </header>
+    <div class="row">
+        <div role="main" class="col-md-6 col-md-push-3">
+            <div id="list" class="row">
+		 
+		    <div class="table-responsive col-md-12">
+		        <table class="table table-striped" cellspacing="0" cellpadding="0">
+		            <thead>
+		                <tr>
+		                    <th>ID</th>
+		                    <th>Name</th>
+		                    <th class="actions">Actions</th>
+		                 </tr>
+		            </thead>
+		            <tbody>
+		                <tr ng-repeat="manufacture in $ctrl.service.manufactures | filter:$ctrl.search:strict">
+
+		                    <td> {{ manufacture.id }} </td>
+		                    <td> {{ manufacture.name }} </td>
+
+		                    <td class="actions">
+		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editManufactureUpdateView($index)"> Edit </a>
+		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleleteManufacturePopView($index)"> delete </a>
+		                    </td>
+
+		                </tr>
+		 
+		            </tbody>
+		         </table>
+		 
+		     </div>
+		 	</div> 
+       		</div>
+        <aside role="complementary" class="col-md-3 col-md-push-3">
+          	  <p> <label> Edit: </label> </p>
+          	  <p> <label> Name: </label> <input ng-model="$ctrl.service.stateManufactureEdit.name" /> </p>
+          	  <p> <a class="btn btn-primary btn-xs" ng-if="$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufacturePushView()"> Create </a> 
+          	  	  <a class="btn btn-info btn-xs" ng-if="!$ctrl.service.isCreate" ng-click="$ctrl.service.saveManufactureUpdateView()"> Save </a> 
+          	  	  <a class="btn btn-danger btn-xs" ng-click="$ctrl.service.clearEdit()"> Clear </a> 
+          	  </p>
+          	  
+        </aside>
+        <nav class="col-md-3 col-md-pull-9">
+        	  <p> <label> Search <label> </label> <p>
+              <p> <label> Name: </label> <input ng-model="$ctrl.search.name" /> </p>
+        </nav>
+    </div>
+    <footer class="row">
+        
+    </footer>
+</div>

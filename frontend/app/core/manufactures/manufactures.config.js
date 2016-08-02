@@ -7,10 +7,6 @@
       $routeProvider.
         when('/manufactures', {
 			template: '<manufectures-list></manufectures-list>',
-        }).
-        when('manufactures', {
-        	template: '<manufectures-detail></manufectures-detail>',
         });
     }
-
 })();

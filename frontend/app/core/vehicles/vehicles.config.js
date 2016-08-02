@@ -7,7 +7,7 @@
       $routeProvider.
         when('/vehicles', {
 			template: '<vehicles-list></vehicles-list>',
-        })
+        });
     }
 
 })();

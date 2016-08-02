@@ -70,7 +70,7 @@ def save_vehiclemodel(vehicle_model_dict):
             vehicle_model.name = vehicle_model_dict.get('name', vehicle_model.name)
             vehicle_model.manufacturer_id = vehicle_model_dict.get('manufacturer_id', vehicle_model.manufacturer_id)
             vehicle_model.motor = vehicle_model_dict.get('motor', vehicle_model.motor)
-            vehicle_model.vehicle_type = vehicle_model_dict.get('type_vehicle', vehicle_model.vehicle_type)
+            vehicle_model.vehicle_type = vehicle_model_dict.get('vehicle_type', vehicle_model.vehicle_type)
         else:
             vehicle_model = VehicleModel(**vehicle_model_dict)
 

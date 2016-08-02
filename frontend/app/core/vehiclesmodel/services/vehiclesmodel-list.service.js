@@ -4,14 +4,11 @@
 	angular.module('vehiclesmodel').factory('VehiclesModelListService', VehiclesModelListService);
 
 
-	function VehiclesModelListService(VehiclesModelApi, ManufacturesApi){
-
-		var ctrl = this;
-
+	function VehiclesModelListService(VehiclesModelApi, ManufacturesApi, $q){
 		var service = {
 			init: init,
-			editVehicleModelUpdateView: editVehicleModelUpdateView,
-			deleteVehicleModelPopView: deleteVehicleModelPopView,
+			setVehicleModelToEdit: setVehicleModelToEdit,
+			deleteVehicleModel: deleteVehicleModel,
 			createVehicleModel: createVehicleModel,
 			updateVehicleModel: updateVehicleModel,
 			clearEdit: clearEdit,
@@ -21,96 +18,70 @@
 		return service;
 
 		function init(){
-
 			service.vehiclesModel = [];
 			service.isCreate = true;
 			service.selectManufacture = {};
 			service.vehicleTypeChoice = ['car', 'bike'];
-			service.motorChoiceCar =  ["125", "250", "500", "1000", "1200", "1400", "1600", "1800", "2000"];
+			service.motorChoice =  ["125", "250", "500", "1000", "1200", "1400", "1600", "1800", "2000"];
 			service.search = {};
+			service.currentVechicleModel = {};
 
-			service.stateVehicleModelEdit = {
-				vehicle_type: '',
-				name: "",
-				manufacture_name: '',
-				motor: "",
-			};
+			var defer = $q.defer();
+			var promisses = {};
+			promisses.manufectures = VehiclesModelApi.getVehiclesModel();
+			promisses.vehiclesModel = ManufacturesApi.getManufactures();
 
-			_getManufactures();
-			return _getVehiclesModel();
-			
+			$q.all(promisses).then(function(result){
+				service.vehiclesModel = result.manufectures.data.vehicles_models;
+				service.manufactures = result.vehiclesModel.data.manufactures;
+
+				defer.resolve(result)
+			}, function(erro){
+				defer.reject(error);
+			});
+
+			return defer.promise;	
 		}
 
-		function _getVehiclesModel(){
+		function setVehicleModelToEdit(vehicleModel){			
+			var manufacture = GLOBAL.getElementByProperty(service.manufactures, 'id', vehicleModel.manufacturer_id);
 
-			var promisse = VehiclesModelApi.getVehiclesModel();
-			promisse.then(sucess, erro);
-
-			function sucess(result){
-				service.vehiclesModel = result.data.vehicles_models;
-			}
-
-			function erro(result){
-				alert(result.data);
-			}
-			return promisse;
-
-		}
-
-		function _getManufactures(){
-			var promisse = ManufacturesApi.getManufactures();
-			promisse.then(sucess, erro);
-			return promisse;
-
-			function sucess(result){
-				service.manufactures = result.data.manufactures;
-			}
-
-			function erro(result){
-				alert(result.data);
-			}
-
-		}
-
-		function editVehicleModelUpdateView(index){
-			
-			var vm = service.vehiclesModel[index];
-
-			var manufacture = GLOBAL.getElementByProperty(service.manufactures, 'id', vm.manufacturer_id);
-
-			service.stateVehicleModelEdit = {
-				id: vm.id,
-				selectedVehicleType: vm.vehicle_type,
-				name: vm.name,
-				selectedMotor: vm.motor.toString(),
+			service.currentVechicleModel = {
+				id: vehicleModel.id,
+				selectedVehicleType: vehicleModel.vehicle_type,
+				name: vehicleModel.name,
+				selectedMotor: vehicleModel.motor.toString(),
 				selectedManufacture: manufacture,
 
 			};
 			service.isCreate = false;
 		}
 
-		function deleteVehicleModelPopView(index){
-			var id = service.vehiclesModel[index].id;
-			var promisse = VehiclesModelApi.deleteVehiclesModelById(id);
+		function deleteVehicleModel(vehicleModel){
+
+			var promisse = VehiclesModelApi.deleteVehiclesModelById(vehicleModel.id);
 
 			promisse.then(function(result){
-				var deletedVehicleModelVector = service.vehiclesModel.splice(index, 1);
+				var indexOfVehicleModel = GLOBAL.indexOfByProperty(service.vehiclesModel, 'id', vehicleModel.id);
+
+				var deletedVehicleModelVector = service.vehiclesModel.splice(indexOfVehicleModel, 1);
 				var deletedVehicleModel = deletedVehicleModelVector[0];
-				if(service.stateVehicleModelEdit.id === deletedVehicleModel.id){
+
+				if(service.currentVechicleModel.id === deletedVehicleModel.id){
 					service.clearEdit();
 				}
 			});
 			return promisse;
 		}
 
-		function _saveVehicleModel(){
+		function _saveOrCreateVehicleModel(vehicleModel){
 
 			var vehiclemodel_params = {
-				id: service.stateVehicleModelEdit.id,
-				name: service.stateVehicleModelEdit.name,
-				manufacturer_id: service.stateVehicleModelEdit.selectedManufacture.id,
-				motor: service.stateVehicleModelEdit.selectedMotor,
-				vehicle_type: service.stateVehicleModelEdit.selectedVehicleType, 
+				id: vehicleModel.id,
+				name: vehicleModel.name,
+				manufacturer_id: vehicleModel.selectedManufacture.id,
+				motor: vehicleModel.selectedMotor,
+				vehicle_type: vehicleModel.selectedVehicleType, 
 			};
 
 			var params = {
@@ -130,7 +101,7 @@
 
 		function createVehicleModel(){
 
-			var promisse = _saveVehicleModel().then(sucess, error);
+			var promisse = _saveOrCreateVehicleModel(service.currentVechicleModel).then(sucess, error);
 			return promisse;
 
 			function sucess(result){
@@ -145,7 +116,7 @@
 
 		function updateVehicleModel(){
 
-			var promisse = _saveVehicleModel().then(sucess, error);
+			var promisse = _saveOrCreateVehicleModel(service.currentVechicleModel).then(sucess, error);
 			service.clearEdit();
 			return promisse;
 
@@ -155,7 +126,6 @@
 				Object.assign(vehicleModel, data);
 			}
 
-
 			function error(result){
 				alert(result.data);
 			}
@@ -163,7 +133,7 @@
 		}
 
 		function clearEdit(){
-			service.stateVehicleModelEdit = {};
+			service.currentVechicleModel = {};
 			service.isCreate = true;
 		}
 

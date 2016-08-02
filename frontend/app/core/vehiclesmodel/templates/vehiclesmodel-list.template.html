@@ -31,8 +31,8 @@
                             <td> {{ vehicleModel.manufacturer_id }} </td>
 		                    	
 		                    <td class="actions">
-		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.editVehicleModelUpdateView($index)"> Edit </a>
-		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleteVehicleModelPopView($index)"> delete </a>
+		                        <a class="btn btn-warning btn-xs" ng-click="$ctrl.service.setVehicleModelToEdit(vehicleModel)"> Edit </a>
+		                        <a class="btn btn-danger btn-xs"  ng-click="$ctrl.service.deleteVehicleModel(vehicleModel)"> delete </a>
 		                    </td>
 
 		                </tr>
@@ -49,23 +49,23 @@
           	  <p> 
                 <label> Edit: </label> 
                 </p>
-          	  <p> <label> Name: </label>          <input ng-model="$ctrl.service.stateVehicleModelEdit.name" />          </p>
+          	  <p> <label> Name: </label>          <input ng-model="$ctrl.service.currentVechicleModel.name" />          </p>
           	  <p> <label> Manufacture: </label>   
 
                
-          	  		<select ng-model="$ctrl.service.stateVehicleModelEdit.selectedManufacture" ng-options="m.name for m in ::$ctrl.service.manufactures track by m.id">
+          	  		<select ng-model="$ctrl.service.currentVechicleModel.selectedManufacture" ng-options="m.name for m in ::$ctrl.service.manufactures track by m.id">
           	  		</select>
 			  </p>
 
           	  <p> 
           	  		<label> Type: </label>  
-                    <select ng-model="$ctrl.service.stateVehicleModelEdit.selectedVehicleType" ng-options="vt for vt in ::$ctrl.service.vehicleTypeChoice">
+                    <select ng-model="$ctrl.service.currentVechicleModel.selectedVehicleType" ng-options="vt for vt in ::$ctrl.service.vehicleTypeChoice">
                     </select>
           	  </p>
 
           	  <p> 
           	  		<label> Motor: </label>  
-                    <select ng-model="$ctrl.service.stateVehicleModelEdit.selectedMotor" ng-options="mt for mt in ::$ctrl.service.motorChoiceCar">
+                    <select ng-model="$ctrl.service.currentVechicleModel.selectedMotor" ng-options="mt for mt in ::$ctrl.service.motorChoice">
                     </select>
           	  </p>
           	  
@@ -92,7 +92,7 @@
 
           	  <p> 
                     <label> Motor: </label>  
-                    <select ng-model="$ctrl.service.search.motor" ng-options="mt for mt in ::$ctrl.service.motorChoiceCar">
+                    <select ng-model="$ctrl.service.search.motor" ng-options="mt for mt in ::$ctrl.service.motorChoice">
                     </select>
           	  </p>
 

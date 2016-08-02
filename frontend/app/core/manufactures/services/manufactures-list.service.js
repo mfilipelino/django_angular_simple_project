@@ -100,7 +100,7 @@
 		}
 
 		function _validationManufacture(){
-			return service.stateManufactureEdit.name == "";
+			return service.stateManufactureEdit.name === "";
 		}
 	}
 

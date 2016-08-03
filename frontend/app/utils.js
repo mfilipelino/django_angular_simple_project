@@ -34,7 +34,7 @@
     }; 
 
     GLOBAL.getYearArrayRange = function (start, end) {
-        var years = []
+        var years = [];
         for(var i = start; i < end; i++){
             years.push(i);
         }

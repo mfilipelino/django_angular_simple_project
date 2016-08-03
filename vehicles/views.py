@@ -71,7 +71,7 @@ class VehicleView(APIView):
         result = vehicles_svc.delete_vehicle(vehicles_id)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
-    def post(self, request, vehicles_id=None,  *args, **kargs):
+    def post(self, request, vehicles_id=None, *args, **kargs):
         vehicle_dict = request.data.get('vehicle_dict')
         result = vehicles_svc.save_vehicle(vehicle_dict)
         return Response(data=result.to_dict(), status=status.HTTP_200_OK, content_type='application/json')

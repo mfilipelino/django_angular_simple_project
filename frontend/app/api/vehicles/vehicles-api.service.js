@@ -11,7 +11,8 @@
         var restApi = {
             getVehicles: getVehicles,
             deleteVehiclesById: deleteVehiclesById,
-            saveManufacture: saveManufacture,
+            saveVehicle: saveVehicle,
+            updateVehicle: updateVehicle,
         };
 
         return restApi;
@@ -20,13 +21,19 @@
            return Ajax.get(vehiclesApiEndPoint);
         }
 
-            function deleteVehiclesById(id){
-                var url = manufactureApiById.replace("<vehicles-id>", id);
-                return Ajax.del(url);
-            }
+        function deleteVehiclesById(id){
+            var url = manufactureApiById.replace("<vehicles-id>", id);
+            return Ajax.del(url);
+        }
 
-        function saveManufacture(params){
+        function saveVehicle(params){
             return Ajax.post(vehiclesApiEndPoint, params);
+        }
+
+         function updateVehicle(params){
+            var id = params.vehicle_dict.id;
+            var url = manufactureApiById.replace("<vehicles-id>", id);
+            return Ajax.post(url, params);
         }
     }
 })();

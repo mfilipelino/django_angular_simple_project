@@ -57,8 +57,8 @@ class VehicleModelListView(APIView):
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
     def post(self, request, *args, **kargs):
-        vehiclemodel_dict = request.data.get('vehiclemodel_dict')
-        result = vehicles_svc.save_vehiclemodel(vehiclemodel_dict)
+        vehicle_dict = request.data.get('vehicle_dict')
+        result = vehicles_svc.save_vehiclemodel(vehicle_dict)
         return Response(data=result.to_dict(), status=status.HTTP_200_OK, content_type='application/json')
 
 
@@ -67,11 +67,24 @@ class VehicleView(APIView):
         result = vehicles_svc.get_vehicle(vehicles_id, as_dict=True)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
+    def delete(self, request, vehicles_id=None, *args, **kargs):
+        result = vehicles_svc.delete_vehicle(vehicles_id)
+        return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
+
+    def post(self, request, vehicles_id=None,  *args, **kargs):
+        vehicle_dict = request.data.get('vehicle_dict')
+        result = vehicles_svc.save_vehicle(vehicle_dict)
+        return Response(data=result.to_dict(), status=status.HTTP_200_OK, content_type='application/json')
+
 
 class VehiclesListView(APIView):
-
     def get(self, request, *args, **kargs):
         filters = request.query_params.get('filters', '{}')
         filters = json.loads(filters)
         result = vehicles_svc.list_vehicles(filters=filters, as_dict=True)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
+
+    def post(self, request, *args, **kargs):
+        vehicle_dict = request.data.get('vehicle_dict')
+        result = vehicles_svc.save_vehicle(vehicle_dict)
+        return Response(data=result.to_dict(), status=status.HTTP_200_OK, content_type='application/json')

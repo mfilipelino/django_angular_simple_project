@@ -88,10 +88,21 @@ def delete_vehicle_model(vehicles_model_id):
     result = list_vehicle_model(filters)
 
     if result['vehicles_models']:
-        result['vehicles_models'][0].delete()
-        return True
+        return result['vehicles_models'][0].delete()
     else:
-        return False
+        return None
+
+
+def delete_vehicle(vehicle_id):
+    filter = {
+        'id': vehicle_id
+    }
+    result = list_vehicles(filter)
+
+    if result['vehicles']:
+        return result['vehicles'][0].delete()
+    else:
+        return None
 
 
 def get_vehicle_model(vehicle_model_id, as_dict=False):

@@ -1,4 +1,4 @@
-<br><br>
+<br></br>
 
 <div class="container">
     <header class="row">
@@ -23,10 +23,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="vehicle in $ctrl.service.vehicles | filter:$ctrl.service.search:strict">
-
+                        <td> {{ vehicle.id }} </td>
                         <td> {{ vehicle.year }} </td>
                         <td> {{ vehicle.color }} </td>
-                        <td> {{ vehicle.vehicle_model }} </td>
+                        <td> {{ vehicle.vehicle_model_id }} </td>
                         <td> {{ vehicle.mileage }} </td>
                           
                         <td class="actions">
@@ -43,27 +43,24 @@
       </div> 
           </div>
 
+          
         <aside role="complementary" class="col-md-3 col-md-push-3">
-
               <p> 
                 <label> Edit: </label> 
                 </p>
-
-              <p> <label> VehicleModel: </label>   
-
-               
-                  <select ng-model="$ctrl.service.currentVehicle.selectedVehicleModel" ng-options="m.name for m in ::$ctrl.service.vehiclesModel track by m.id">
+              <p> <label> VehicleModel: </label>  
+                  <select ng-model="$ctrl.service.currentVehicle.selectedVehicleModel" ng-options="m.name for m in $ctrl.service.vehiclesModel track by m.id">
                   </select>
               </p>
 
               <p> 
                   <label> Color: </label>  
-                    <select ng-model="$ctrl.service.currentVehicle.selectedColor" ng-options="mt for mt in ::$ctrl.service.colorChoice">
+                    <select ng-model="$ctrl.service.currentVehicle.selectedColor" ng-options="mt for mt in $ctrl.service.colorChoice">
                     </select>
               </p>
               <p> 
                   <label> Year: </label>  
-                    <select ng-model="$ctrl.service.currentVehicle.selectedYear" ng-options="vt for vt in ::$ctrl.service.vehicleYearChoice">
+                    <select ng-model="$ctrl.service.currentVehicle.selectedYear" ng-options="vt for vt in $ctrl.service.vehicleYearChoice">
                     </select>
               </p>
 
@@ -78,20 +75,20 @@
             <p> <label> Search: </label> </p>
 
               <p> <label> Vehicle Model: </label>   
-                  <select ng-model="$ctrl.service.vehicleModelFilter" ng-options="vm.name for m in ::$ctrl.service.vehiclesModel track by vm.id"  ng-change="$ctrl.service.changeVehicleModelFilter()">
+                  <select ng-model="$ctrl.service.vehicleModelFilter" ng-options="m.name for m in $ctrl.service.vehiclesModel track by m.id"  ng-change="$ctrl.service.changeVehicleModelFilter()">
                     </select>
 
         </p>
 
               <p> 
                   <label> Color: </label> 
-                    <select ng-model="$ctrl.service.search.color" ng-options="c for c in ::$ctrl.service.colorChoice">
+                    <select ng-model="$ctrl.service.search.color" ng-options="c for c in $ctrl.service.colorChoice">
                     </select>                    
               </p>
 
               <p> 
                     <label> Year: </label>  
-                    <select ng-model="$ctrl.service.search.year" ng-options="y for y in ::$ctrl.service.yearChoice">
+                    <select ng-model="$ctrl.service.search.year" ng-options="y for y in $ctrl.service.vehicleYearChoice">
                     </select>
               </p>
 

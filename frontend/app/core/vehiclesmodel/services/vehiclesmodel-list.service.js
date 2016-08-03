@@ -116,13 +116,13 @@
 		function updateVehicleModel(){
 
 			var promisse = _saveOrCreateVehicleModel(service.currentVechicleModel).then(sucess, error);
-			service.clearEdit();
 			return promisse;
 
 			function sucess(result){
 				var data = result.data;
 				var vehicleModel = GLOBAL.getElementByProperty(service.vehiclesModel, 'id', data.id);
 				Object.assign(vehicleModel, data);
+				service.clearEdit();
 			}
 
 			function error(result){

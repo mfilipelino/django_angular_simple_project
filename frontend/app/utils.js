@@ -31,5 +31,14 @@
             return array[elementIndex];
         }
         return null;
-    };    
+    }; 
+
+    GLOBAL.getYearArrayRange = function (start, end) {
+        var years = []
+        for(var i = start; i < end; i++){
+            years.push(i);
+        }
+        return years;
+    }; 
+
 })();

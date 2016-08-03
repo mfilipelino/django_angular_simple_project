@@ -14,7 +14,7 @@
 			updateVehicle: updateVehicle,
 			clearEdit: clearEdit,
 			clearSearch: clearSearch,
-			changeManufacturerFilter: changeManufacturerFilter
+			changeVehicleModelFilter: changeVehicleModelFilter
 		};
 
 		return service;
@@ -23,8 +23,8 @@
 			service.vehiclesModel = [];
 			service.isCreate = true;
 			service.selectManufacture = {};
-			service.vehicleTypeChoice = ['car', 'bike'];
-			service.motorChoice =  ["125", "250", "500", "1000", "1200", "1400", "1600", "1800", "2000"];
+			service.colorChoice = ['blue', 'black', 'red'];
+			service.vehicleYearChoice = GLOBAL.getYearArrayRange(2000, 2016);
 			service.search = {};
 			service.currentVechicle = {};
 
@@ -47,66 +47,66 @@
 		function setVehicleToEdit(vehicle){			
 			var model = GLOBAL.getElementByProperty(service.vehiclesModel, 'id', vehicle.vehicle_model_id);
 
-			service.currentVechicle = {
+			service.currentVehicle = {
 				id: vehicle.id,
 				selectedColor: vehicle.color,
 				selectedYear: vehicle.year,
-				selectedVehicleModel: model.name,
+				selectedVehicleModel: model,
 				selectedMileage: vehicle.mileage,
 
 			};
 			service.isCreate = false;
 		}
 
-		function deleteVehicle(vehicleModel){
+		function deleteVehicle(vehicle){
 
-			var promisse = VehiclesModelApi.deleteVehiclesModelById(vehicleModel.id);
+			var promisse = VehiclesApi.deleteVehiclesById(vehicle.id);
 
 			promisse.then(function(result){
-				var indexOfVehicleModel = GLOBAL.indexOfByProperty(service.vehicles, 'id', vehicleModel.id);
+				var indexOfVehicleModel = GLOBAL.indexOfByProperty(service.vehicles, 'id', vehicle.id);
 
-				var deletedVehicleModelVector = service.vehiclesModel.splice(indexOfVehicleModel, 1);
-				var deletedVehicleModel = deletedVehicleModelVector[0];
+				var deletedVehicleVector = service.vehicles.splice(indexOfVehicleModel, 1);
+				var deletedVehicle = deletedVehicleVector[0];
 
-				if(service.currentVechicleModel.id === deletedVehicleModel.id){
+				if(service.currentVechicle.id === deletedVehicle.id){
 					service.clearEdit();
 				}
 			});
 			return promisse;
 		}
 
-		function _saveOrCreateVehicleModel(vehicleModel){
+		function _saveOrCreateVehicleModel(vehicle){
 
-			var vehiclemodel_params = {
-				id: vehicleModel.id,
-				name: vehicleModel.name,
-				manufacturer_id: vehicleModel.selectedManufacture.id,
-				motor: vehicleModel.selectedMotor,
-				vehicle_type: vehicleModel.selectedVehicleType, 
+			var vehicle_params = {
+				id: vehicle.id,
+				color: vehicle.selectedColor,
+				year: vehicle.selectedYear,
+				mileage: vehicle.selectedMileage, 
+				vehicle_model_id: vehicle.selectedVehicleModel.id,
 			};
 
 			var params = {
-				vehiclemodel_dict: vehiclemodel_params,
+				vehicle_dict: vehicle_params,
 			};
 
 			var promisse;
 
-			if(vehiclemodel_params.id){
-				promisse = VehiclesModelApi.updateVehicle(params);
+			if(vehicle_params.id){
+				promisse = VehiclesApi.updateVehicle(params);
 			}
 			else{
-				promisse = VehiclesModelApi.saveVehicleModel(params);
+				promisse = VehiclesApi.saveVehicle(params);
 			}
 			return promisse;
 		}
 
 		function createVehicle(){
 
-			var promisse = _saveOrCreateVehicleModel(service.currentVechicleModel).then(sucess, error);
+			var promisse = _saveOrCreateVehicleModel(service.currentVehicle).then(sucess, error);
 			return promisse;
 
 			function sucess(result){
-				service.vehiclesModel.push(result.data);
+				service.vehicles.push(result.data);
 				service.clearEdit();
 			}
 
@@ -117,14 +117,14 @@
 
 		function updateVehicle(){
 
-			var promisse = _saveOrCreateVehicleModel(service.currentVechicleModel).then(sucess, error);
-			service.clearEdit();
+			var promisse = _saveOrCreateVehicleModel(service.currentVehicle).then(sucess, error);
 			return promisse;
 
 			function sucess(result){
 				var data = result.data;
-				var vehicleModel = GLOBAL.getElementByProperty(service.vehiclesModel, 'id', data.id);
-				Object.assign(vehicleModel, data);
+				var vehicle = GLOBAL.getElementByProperty(service.vehicles, 'id', data.id);
+				Object.assign(vehicle, data);
+				service.clearEdit();
 			}
 
 			function error(result){
@@ -134,7 +134,7 @@
 		}
 
 		function clearEdit(){
-			service.currentVechicleModel = {};
+			service.currentVehicle = {};
 			service.isCreate = true;
 		}
 
@@ -143,8 +143,8 @@
 			service.manufacturerFilter = null;
 		}
 
-		function changeManufacturerFilter(){
-			service.search.manufacturer_id = service.manufacturerFilter.id;
+		function changeVehicleModelFilter(){
+			service.search.vehicle_model_id = service.vehicleModelFilter.id;
 		}
 	}
 

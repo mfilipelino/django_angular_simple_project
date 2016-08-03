@@ -5,7 +5,7 @@ node-install:
 	cd frontend && npm install
 
 venv:
-	virtualenv -p /usr/bin/python3 venv
+	pip install virtualenv && virtualenv -p /usr/bin/python3 venv
 
 requirements:
 	venv/bin/python3 venv/bin/pip3 install -r requirements.txt

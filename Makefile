@@ -11,7 +11,7 @@ requirements:
 	venv/bin/python3 venv/bin/pip3 install -r requirements.txt
 	venv/bin/python3 venv/bin/pip3 install -r requirements-test.txt
 
-install: venv requirements
+install: apt-get-install node-install venv requirements
 
 test:
 	venv/bin/python3 manage.py test

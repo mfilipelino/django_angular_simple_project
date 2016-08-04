@@ -11,7 +11,14 @@ requirements:
 	venv/bin/python3 venv/bin/pip3 install -r requirements.txt
 	venv/bin/python3 venv/bin/pip3 install -r requirements-test.txt
 
+python-install: venv requirements
+
 install: apt-get-install node-install venv requirements
+
+build:
+	venv/bin/python3 manage.py makemigrations
+	venv/bin/python3 manage.py migrate
+	venv/bin/python3 manage.py loaddata database.json 	
 
 test:
 	venv/bin/python3 manage.py test

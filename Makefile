@@ -1,5 +1,5 @@
 apt-get-install:
-	sudo apt-get install -y python-pip python-dev build-essential openjdk-8-jre nodejs-legacy npm
+	sudo apt-get install -y virtualenv python-pip nodejs-legacy npm
 
 node-install:
 	cd frontend && npm install

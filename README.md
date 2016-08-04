@@ -47,6 +47,9 @@ Criar uma aplicação web que implemente um CRUD de veículos.
 - pip
 - bower
 
+## Integração continua
+
+- travis
 
 # Referências 
 

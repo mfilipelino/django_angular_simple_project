@@ -5,7 +5,7 @@ node-install:
 	cd frontend && npm install
 
 venv:
-	pip install virtualenv && virtualenv -p /usr/bin/python3 venv
+	python3 -m venv venv
 
 requirements:
 	venv/bin/python3 venv/bin/pip3 install -r requirements.txt
@@ -13,10 +13,9 @@ requirements:
 
 python-install: venv requirements
 
-install: apt-get-install node-install venv requirements
+install: node-install python-install
 
 build:
-	venv/bin/python3 manage.py makemigrations
 	venv/bin/python3 manage.py migrate
 	venv/bin/python3 manage.py loaddata database.json 	
 
@@ -35,6 +34,4 @@ clean:
 	rm -rf venv
 	rm -rf htmlcov
 	rm .coverage
-
-setup: build-venv apply-migration load-fixtures create-superuser
-	echo "all set!"
+	rm db.sqlite3

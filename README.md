@@ -5,7 +5,7 @@
 ## 
 Criar uma aplicação web que implemente um CRUD de veículos.
 
-## Requisitos de pré-instalação
+## Dependências
 
 - python3
 - pip
@@ -26,13 +26,8 @@ Criar uma aplicação web que implemente um CRUD de veículos.
 
 ## Frameworks
 
-### Backend
-
 - django
 - django-rest-framework
-
-### Frontend
-
 - angular
 
 ## Testes
@@ -45,9 +40,9 @@ Criar uma aplicação web que implemente um CRUD de veículos.
 - jslint
 - flake8
 
-## Dependências
+## Gerenciador de dependências
 
-- Make
+- pip
 - bower
 
 

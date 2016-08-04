@@ -22,7 +22,8 @@
                      </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="vehicle in $ctrl.service.vehicles | filter:$ctrl.service.search:strict">
+                   
+                    <tr ng-repeat="vehicle in $ctrl.service.vehicles | filter:$ctrl.service.search:strict | filter:$ctrl.service.rangeYearFilter">
                         <td> {{ vehicle.id }} </td>
                         <td> {{ vehicle.year }} </td>
                         <td> {{ vehicle.color }} </td>
@@ -87,8 +88,14 @@
               </p>
 
               <p> 
-                    <label> Year: </label>  
-                    <select ng-model="$ctrl.service.search.year" ng-options="y for y in $ctrl.service.vehicleYearChoice">
+                    <label> Year Min: </label>  
+                    <select ng-model="$ctrl.service.rangeInfoYear.min" ng-options="y for y in $ctrl.service.vehicleYearChoice">
+                    </select>
+              </p>
+
+              <p> 
+                    <label> Year Max: </label>  
+                    <select ng-model="$ctrl.service.rangeInfoYear.max" ng-options="y for y in $ctrl.service.vehicleYearChoice">
                     </select>
               </p>
 

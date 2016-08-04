@@ -14,7 +14,8 @@
 			updateVehicle: updateVehicle,
 			clearEdit: clearEdit,
 			clearSearch: clearSearch,
-			changeVehicleModelFilter: changeVehicleModelFilter
+			changeVehicleModelFilter: changeVehicleModelFilter,
+			rangeYearFilter: rangeYearFilter,
 		};
 
 		return service;
@@ -27,6 +28,8 @@
 			service.vehicleYearChoice = GLOBAL.getYearArrayRange(2000, 2016);
 			service.search = {};
 			service.currentVechicle = {};
+			_initRangeInfoYearFilterUse();
+
 
 			var defer = $q.defer();
 			var promisses = {};
@@ -141,6 +144,23 @@
 		function clearSearch(){
 			service.search = {};
 			service.manufacturerFilter = null;
+			_initRangeInfoYearFilterUse();
+		}
+
+		function _initRangeInfoYearFilterUse(){
+			var ult = service.vehicleYearChoice.length - 1
+			service.rangeInfoYear = {
+				min: service.vehicleYearChoice[0],
+				max: service.vehicleYearChoice[ult],
+				key: 'year',	
+			}
+		}
+
+		function rangeYearFilter(item){
+			var key = service.rangeInfoYear.key; 
+            var min = parseInt(service.rangeInfoYear.min);
+            var max = parseInt(service.rangeInfoYear.max);
+            return (item[key] >= min && item[key] <= max)
 		}
 
 		function changeVehicleModelFilter(){

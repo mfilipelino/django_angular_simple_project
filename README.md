@@ -15,11 +15,11 @@ Criar uma aplicação web que implemente um CRUD de veículos.
 ## Automação de tarefas
 
 - `make install` para instalação de dependências
-- `make buldi` para criar o banco e populá-lo
+- `make build` para criar o banco e populá-lo
 - `make run-server` para subir os servidores
 - `make test` para rodar os testes 
-- `make run-server` iniciar o servidor htpp://localhost:8000
 - `make pycoverage` acessar coverage/index.html
+- `make run-server` iniciar o servidor htpp://localhost:8000
 
 
 # Tecnologias 

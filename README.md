@@ -6,7 +6,7 @@
 
 [![Build Status](https://travis-ci.org/mfilipelino/vdbackend.svg?branch=master)](https://travis-ci.org/mfilipelino/vdbackend)
 
-Criar uma aplicação web que implemente um CRUD de veículos.
+Criar uma aplicação web que implemente um CRUD de veículos. [vivadecora](https://github.com/vivadecora/backend-teste)
 
 ## Dependências
 

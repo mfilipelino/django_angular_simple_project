@@ -4,7 +4,6 @@ from utils import fakedata
 
 
 class ManufacturerTest(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         super(ManufacturerTest, cls).setUpTestData()
@@ -57,7 +56,6 @@ class ManufacturerTest(TestCase):
         filter = {
             'name': 'manufac0v'
         }
-
         result = vehicles_svc.list_manufacturer(filter)
         self.assertEqual(len(result['manufactures']), 1)
 
@@ -73,9 +71,19 @@ class ManufacturerTest(TestCase):
         result = vehicles_svc.list_manufacturer()
         self.assertEqual(len(result['manufactures']), 10)
 
+    def test_delete_manufacture_id_exist(self):
+        manufactures_dict_list = vehicles_svc.list_manufacturer()
+        manufactures = manufactures_dict_list['manufactures']
+        manufacture = manufactures[0]
+        result = vehicles_svc.delete_manufacturer(manufacture.id)
+        self.assertEqual(result, True)
+
+    def test_delete_manufacture_id_doesnt_exist(self):
+        result = vehicles_svc.delete_manufacturer(-1)
+        self.assertEqual(result, False)
+
 
 class VehicleModelTest(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         super(VehicleModelTest, cls).setUpTestData()
@@ -117,19 +125,20 @@ class VehicleModelTest(TestCase):
         self.assertEqual(vehicle_model.id, id)
 
     def test_list_vehicle_model(self):
-        vehicle_model_dict = {}
-        result = vehicles_svc.list_vehicle_model(vehicle_model_dict)
+        result = vehicles_svc.list_vehicle_model()
         self.assertEqual(len(result['vehicles_models']), 10)
 
-    def test_list_vehicle_filter_name(self):
+    def test_list_vehicle_model_filter(self):
         filter = {
-            'name': 'model0'
+            'name': 'model0',
+            'manufacturer_id': 1,
+            'motor': 1000
         }
 
         result = vehicles_svc.list_vehicle_model(filter)
         self.assertEqual(len(result['vehicles_models']), 1)
 
-    def test_list_vehicle_model_filter_name_contains(self):
+    def test_list_vehicle_model_filter_contains(self):
         filter = {
             'name_contains': 'model'
         }
@@ -137,9 +146,16 @@ class VehicleModelTest(TestCase):
         result = vehicles_svc.list_vehicle_model(filter)
         self.assertEqual(len(result['vehicles_models']), 10)
 
-    def test_list_vehicle_model_filter_none(self):
-        result = vehicles_svc.list_vehicle_model()
-        self.assertEqual(len(result['vehicles_models']), 10)
+    def test_delete_vehicle_model_id_exist(self):
+        vehicles_model_dict_list = vehicles_svc.list_vehicle_model()
+        vehicles_model = vehicles_model_dict_list['vehicles_models']
+        vehicle_model = vehicles_model[0]
+        result = vehicles_svc.delete_vehicle_model(vehicle_model.id)
+        self.assertEqual(result, True)
+
+    def test_delete_vehicle_model_id_doesnt_exist(self):
+        result = vehicles_svc.delete_vehicle_model(-1)
+        self.assertEqual(result, False)
 
 
 class VehicleTest(TestCase):
@@ -149,6 +165,15 @@ class VehicleTest(TestCase):
         cls.vehicle_mock_lst = []
         for i in range(10):
             cls.vehicle_mock_lst.append(fakedata.create_vehicle(year=2000, color='vermelho'))
+
+    def test_get_vehicle_not_exist(self):
+        vehicle = vehicles_svc.get_vehicle(-1)
+        self.assertIsNone(vehicle)
+
+    def test_get_vehicle(self):
+        vehicle_mock = self.vehicle_mock_lst[0]
+        vehicle = vehicles_svc.get_vehicle(vehicle_mock.id)
+        self.assertEqual(vehicle.id, vehicle_mock.id)
 
     def test_save_vehicle_no_exist_object_return_none(self):
         vehicle_dict = {}
@@ -173,36 +198,23 @@ class VehicleTest(TestCase):
         vehicle = vehicles_svc.save_vehicle(vehicle_dict)
         self.assertEqual(vehicle.year, 2000)
 
-    def test_list_vehicle(self):
+    def test_list_vehicle_no_filter(self):
         vehicle_dict = {}
         result = vehicles_svc.list_vehicles(vehicle_dict)
         self.assertEqual(len(result['vehicles']), 10)
 
-    def test_list_vehicle_filter_year(self):
+    def test_list_vehicle_filter(self):
         filter = {
-            'year': '2000'
+            'year': '2000',
+            'color': 'vermelho',
+            'mileage': 100000,
+            'vehicle_model_id': 1
         }
 
         result = vehicles_svc.list_vehicles(filter)
-        self.assertEqual(len(result['vehicles']), 10)
+        self.assertEqual(len(result['vehicles']), 1)
 
-    def test_list_vehicle_filter_color(self):
-        filter = {
-            'color': 'vermelho'
-        }
-
-        result = vehicles_svc.list_vehicles(filter)
-        self.assertEqual(len(result['vehicles']), 10)
-
-    def test_list_vehicle_filter_mileage(self):
-        filter = {
-            'mileage': 100000
-        }
-
-        result = vehicles_svc.list_vehicles(filter)
-        self.assertEqual(len(result['vehicles']), 10)
-
-    def test_list_vehicle_filter_color_contains(self):
+    def test_list_vehicle_filter_contains(self):
         filter = {
             'color_contains': 'ver'
         }
@@ -213,3 +225,14 @@ class VehicleTest(TestCase):
     def test_list_vehicle_model_filter_none(self):
         result = vehicles_svc.list_vehicles()
         self.assertEqual(len(result['vehicles']), 10)
+
+    def test_delete_vehicle_id_exist(self):
+        vehicles_dict_list = vehicles_svc.list_vehicles()
+        vehicles = vehicles_dict_list['vehicles']
+        vehicle = vehicles[0]
+        result = vehicles_svc.delete_vehicle(vehicle.id)
+        self.assertEqual(result, True)
+
+    def test_delete_vehicles_id_doesnt_exist(self):
+        result = vehicles_svc.delete_vehicle(-1)
+        self.assertEqual(result, False)

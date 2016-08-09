@@ -15,7 +15,8 @@ class VehicleManufacturerView(APIView):
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
     def post(self, request, manufacture_id=None, *args, **kargs):
-        result = vehicles_svc.save_manufacturer(request.data)
+        manufacture_dict = request.data.get('manufacture_dict')
+        result = vehicles_svc.save_manufacturer(manufacture_dict)
         return Response(data=result, status=status.HTTP_200_OK, content_type='application/json')
 
 

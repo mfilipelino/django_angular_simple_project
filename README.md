@@ -85,3 +85,10 @@ Criar uma aplicação web que implemente um CRUD de veículos. [vivadecora/backe
 
 - [djangular3](https://github.com/tonylampada/djangular3)
 - [angular-phonecat](https://github.com/angular/angular-phonecat)
+
+```bash
+function aaaa(){
+    ls -la
+}
+```
+
